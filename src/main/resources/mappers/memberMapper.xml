@@ -9,8 +9,8 @@
 
 <insert id="create">
 
-	insert into tbl_member (mno, mid, mname, mpw, mnick, mmail, mhp, htel, haddr)
-	values (seq_member.nextval, #{mid}, #{mname}, #{mpw}, #{mnick}, #{mmail}, #{mhp}, #{htel}, #{haddr})
+	insert into tbl_member (mno, mid, mname, mpw, mnick, mmail, mhp)
+	values (seq_member.nextval, #{mid}, #{mname}, #{mpw}, #{mnick}, #{mmail}, #{mhp})
 
 </insert>
 
@@ -24,7 +24,7 @@
 
 <update id="update" parameterType="MemberVO">
 
-	update tbl_member set mid=#{mid}, mname=#{mname}, mpw=#{mpw}, mnick=#{mnick}, mmail=#{mmail}, mhp=#{mhp}, htel=#{htel}, haddr=#{haddr} where mno=#{mno}
+	update tbl_member set mid=#{mid}, mname=#{mname}, mpw=#{mpw}, mnick=#{mnick}, mmail=#{mmail}, mhp=#{mhp} where mno=#{mno}
 
 </update>
 
@@ -43,7 +43,7 @@
 	<![CDATA[
 	select* 
 	from 
-		(select rownum rno, mno, mid, mname, mpw, mnick, mmail, mhp, mh, htel, haddr, regdate from tbl_member where rownum>0)
+		(select rownum rno, mno, mid, mname, mpw, mnick, mmail, mhp, mh, regdate from tbl_member where rownum>0)
 	order by mno desc
 	]]>
 
@@ -52,10 +52,10 @@
 <select id="listPage" resultType="MemberVO">
 
 	<![CDATA[
-	select mno, mid, mname, mpw, mmail, mhp, mnick, mh, htel, haddr, regdate 
+	select mno, mid, mname, mpw, mmail, mhp, mnick, mh, regdate 
 	from 
 	  (
-	  select rownum rno, mno, mid, mname, mpw, mnick, mmail, mhp, mh, htel, haddr, regdate 
+	  select rownum rno, mno, mid, mname, mpw, mnick, mmail, mhp, mh, regdate 
 	  from tbl_member 
 	  where mno > 0 
 	  and rownum <= #{page} * 10 
@@ -69,10 +69,10 @@
 <select id="listCriteria" resultType="MemberVO">
 
 	<![CDATA[
-	select mno, mid, mname, mpw, mmail, mhp, mnick, mh, htel, haddr, regdate 
+	select mno, mid, mname, mpw, mmail, mhp, mnick, mh, regdate 
 	from 
 	  (
-	  select rownum rno, mno, mid, mname, mpw, mnick, mmail, mhp, mh, htel, haddr, regdate 
+	  select rownum rno, mno, mid, mname, mpw, mnick, mmail, mhp, mh, regdate 
 	  from tbl_member 
 	  where mno > 0 
 	  and rownum <= #{page} * #{perPageNum} 
@@ -94,10 +94,10 @@
 <select id="listSearch" resultType="MemberVO">
 
 	<![CDATA[
-	select mno, mid, mname, mpw, mmail, mhp, mnick, mh, htel, haddr, regdate 
+	select mno, mid, mname, mpw, mmail, mhp, mnick, mh, regdate 
 from 
 (
-  select rownum rno, mno, mid, mname, mpw, mnick, mmail, mhp, mh, htel, haddr, regdate 
+  select rownum rno, mno, mid, mname, mpw, mnick, mmail, mhp, mh, regdate 
   from tbl_member 
   where mno > 0 
 	  ]]>

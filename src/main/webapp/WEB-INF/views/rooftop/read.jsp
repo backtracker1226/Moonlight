@@ -404,7 +404,7 @@ $(document).ready(function(){
 		$(list).each(function(index){
 			
 			if($(".ch_animal").val()==list[index]){
-				$("#.ch_animal").attr('class', 'circle checked');
+				$("#ch_animal").attr('class', 'circle checked');
 			}
 		});
 		

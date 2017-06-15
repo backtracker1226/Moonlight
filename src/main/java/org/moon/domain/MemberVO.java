@@ -13,8 +13,6 @@ public class MemberVO {
 	private String mmail;
 	private String mhp;
 	private int mh;
-	private String htel;
-	private String haddr;
 	private Date regdate;
 	
 	private String[] imgname;
@@ -67,18 +65,6 @@ public class MemberVO {
 	public void setMh(int mh) {
 		this.mh = mh;
 	}
-	public String getHtel() {
-		return htel;
-	}
-	public void setHtel(String htel) {
-		this.htel = htel;
-	}
-	public String getHaddr() {
-		return haddr;
-	}
-	public void setHaddr(String haddr) {
-		this.haddr = haddr;
-	}
 	public Date getRegdate() {
 		return regdate;
 	}
@@ -95,8 +81,9 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		return "MemberVO [mno=" + mno + ", mid=" + mid + ", mname=" + mname + ", mpw=" + mpw + ", mnick=" + mnick
-				+ ", mmail=" + mmail + ", mhp=" + mhp + ", mh=" + mh + ", htel=" + htel + ", haddr=" + haddr
-				+ ", regdate=" + regdate + ", imgname=" + Arrays.toString(imgname) + "]";
+				+ ", mmail=" + mmail + ", mhp=" + mhp + ", mh=" + mh + ", regdate=" + regdate + ", imgname="
+				+ Arrays.toString(imgname) + "]";
 	}
+
 		
 }

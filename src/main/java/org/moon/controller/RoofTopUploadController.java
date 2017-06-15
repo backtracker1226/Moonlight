@@ -54,7 +54,7 @@ public class RoofTopUploadController {
 
 	private String uploadPath = "C:\\moon";
 	@ResponseBody
-	@RequestMapping(value = "/uploadAjax2", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
 
 		logger.info("originalName: " + file.getOriginalFilename());
@@ -107,7 +107,7 @@ public class RoofTopUploadController {
 	}
 
 	@ResponseBody
-	@PostMapping("/deleteFile2")
+	@PostMapping("/deleteFile")
 	public ResponseEntity<String> deleteFile(String fileName) {
 
 		logger.info("delete file: " + fileName);

@@ -390,7 +390,7 @@ $(document).ready(function(){
 			if(file.type=='image/jpeg'||file.type=='image/png'||file.type=='image/gif'||file.type=='image/jpg'){
 				if($("img[name='rtimg']").length < 10){
 					$.ajax({
-						  url: '/uploadAjax',
+						  url: '/roof/uploadAjax',
 						  data: formData,
 						  dataType:'text',
 						  processData: false,
@@ -445,7 +445,7 @@ $(document).ready(function(){
 			if(file.type=='image/jpeg'||file.type=='image/png'||file.type=='image/gif'||file.type=='image/jpg'){
 				if($("img[name='rtimg']").length < 10){		
 					$.ajax({
-						  url: '/uploadAjax',
+						  url: '/roof/uploadAjax',
 						  data: formData,
 						  dataType:'text',
 						  processData: false,
@@ -487,7 +487,7 @@ $(document).ready(function(){
 		var that = $(this);
 		 
 		$.ajax({
-			url: "/deleteFile",
+			url: "/roof/deleteFile",
 			type: "post",
 			data: {fileName:$(this).attr("href")},
 			dataType: "text",
@@ -578,7 +578,7 @@ $(document).ready(function(){
 		console.log(tagArr);
 		$.ajax({
 			
-			url:"/uploadTags",
+			url:"/roof/uploadTags",
 			type:"post",
 			data:{hashtags:tagArr},
 			dataType:'text'
