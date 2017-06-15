@@ -37,8 +37,7 @@ public class RoofTopUploadController {
 
 	}
 */
-	@Resource(name = "uploadPath")
-	private String uploadPath;
+
 
 	/*
 	 * @PostMapping("/uploadForm") public void uploadFormPost(MultipartFile
@@ -52,6 +51,7 @@ public class RoofTopUploadController {
 	 * }
 	 */
 
+	private String uploadPath = "C:\\moon";
 	@ResponseBody
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
