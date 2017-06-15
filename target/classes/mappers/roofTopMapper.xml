@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.moon.mappers.roofTopMapper">
+
+	<insert id="create">
+		insert into tbl_rooftop (rtid, rtname, rtintroduction, rtemail,
+		rtphonenumber, rtaddress, rtnotes, rtpurpose, rtlat, rtlng, price, minpeople, maxpeople)
+		values (seq_tbl_rooftop.nextval, #{rtname}, #{rtintroduction},
+		#{rtemail}, #{rtphonenumber},
+		#{rtaddress}, #{rtnotes} , #{rtpurpose}, #{rtlat}, #{rtlng},
+		#{price}, #{minpeople}, #{maxpeople})
+	</insert>
+	
+	<insert id="addImg">
+		insert into TBL_ROOFTOP_IMG (fname, rtid)
+		values (#{fname}, seq_tbl_rooftop.currval)
+	</insert>
+	
+	<insert id="addHashtag">
+		insert into tbl_rooftop_hashtag (htid, hashtagname, rtid)
+		values (seq_tbl_rooftop_hashtag.nextval, #{hashtagname}, seq_tbl_rooftop.currval)
+	</insert>
+	
+	<insert id="addOptions">
+		insert into tbl_rooftop_options (opid, optionname, rtid)
+		values (seq_tbl_rooftop_options.nextval, #{optionname}, seq_tbl_rooftop.currval)
+	</insert>
+	
+	<select id="getImg" resultType="string">
+		select fname from tbl_rooftop_img where rtid = #{rtid} order by regdate
+	</select>
+	
+	<select id="getHashtag" resultType="string">
+		select hashtagname from TBL_ROOFTOP_HASHTAG where rtid = #{rtid} order by regdate
+	</select>
+	
+	<select id="getOption" resultType="string">
+		select optionname from tbl_rooftop_options where rtid = #{rtid} order by regdate
+	</select>
+	
+	<delete id="deleteImg">
+		delete from tbl_rooftop_img where rtid = #{rtid}
+	</delete>
+	
+	<delete id="deleteHashtag">
+		delete from TBL_ROOFTOP_HASHTAG where rtid = #{rtid}
+	</delete>
+	
+	<delete id="deleteOption">
+		delete from tbl_rooftop_options where rtid = #{rtid}
+	</delete>
+	
+	<insert id="replaceImg">
+		insert into TBL_ROOFTOP_IMG (fname, rtid)
+		values (#{fullName}, #{rtid})
+	</insert>
+	
+	<insert id="replaceHashtag">
+		insert into tbl_rooftop_hashtag (htid, hashtagname, rtid)
+		values (seq_tbl_rooftop_hashtag.nextval, #{hashtagname}, #{rtid})
+	</insert>
+	
+	<insert id="replaceOption">
+		insert into tbl_rooftop_options (opid, optionname, rtid)
+		values (seq_tbl_rooftop_options.nextval, #{optionname}, #{rtid})
+	</insert>
+	
+	<select id="read" resultType="RoofTopVO">
+		select rtid, rtname, rtintroduction, rtemail, rtphonenumber, rtaddress, rtnotes, rtpurpose,  price, minpeople, maxpeople 
+		from tbl_rooftop where rtid = #{rtid} and rtid > 0 order by rtid desc
+	</select>
+	
+	<update id="update">
+		update tbl_rooftop set rtname = #{rtname}, rtintroduction = #{rtintroduction}, 
+		rtemail = #{rtemail}, rtphonenumber = #{rtphonenumber}, rtaddress = #{rtaddress}, 
+		rtnotes = #{rtnotes}, rtpurpose = #{rtpurpose}, rtlat = #{rtlat}, rtlng = #{rtlng}, price = #{price}, 
+		minpeople = #{minpeople}, maxpeople = #{maxpeople}
+		where rtid = #{rtid}
+	</update>
+	
+	<select id="allList" resultType="RoofTopVO">
+	
+		select rtid, rtname, rtaddress, regdate, updatedate
+		from (
+		select rownum r2, rtid, rtname, rtaddress, regdate, updatedate
+		from(
+		select rownum r1, rtid, rtname, rtaddress, regdate, updatedate
+		from tbl_rooftop
+	<![CDATA[
+		where rtid > 0
+		order by rtid desc
+		)t1
+		where t1.r1 <= 20
+		)t2
+		where t2.r2 > 10
+	]]>
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from tbl_rooftop
+	</select>
+	
+</mapper>
