@@ -26,11 +26,47 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+<<<<<<< HEAD
 	<beans:bean id="uploadPath" class="java.lang.String">
     <beans:constructor-arg value="C://moon//upload"></beans:constructor-arg>
     </beans:bean>
+=======
+	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> <!-- 파일 업로드로 들어오는 데이터를 처리하기 위한 객체 : multipartResolver -->
+		<beans:property name="maxUploadSize" value="10485760"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="uploadPath" class="java.lang.String">
+	<beans:constructor-arg value="C://moon//upload"></beans:constructor-arg>
+	</beans:bean>
+	
+	<!-- AuthInterceptor의 설정 -->
+	<beans:bean id="authInterceptor" class="org.moon.interceptor.AuthInterceptor"></beans:bean>
+	
+	<!-- LoginInterceptor의 설정 -->
+	<beans:bean id="loginInterceptor" class="org.moon.interceptor.LoginInterceptor"></beans:bean>
+	
+		<interceptors>
+			<!-- LoginInterceptor -->
+			<interceptor>
+				<mapping path="/member/loginPost"/>
+				<beans:ref bean="loginInterceptor"/>
+			</interceptor>
+			
+			<!-- AuthInterceptor의 설정 -->
+			<interceptor>
+				<mapping path="/member/mlistPage"/>
+				<beans:ref bean="authInterceptor"/>
+			</interceptor>
+		</interceptors>
+		
+>>>>>>> branch 'master' of https://github.com/backtracker1226/moonlight.git
 	<context:component-scan base-package="org.moon.controller" />
+<<<<<<< HEAD
 	<context:component-scan base-package="org.moon.domain"></context:component-scan>
+=======
+	<context:component-scan base-package="org.moon.domain" />
+>>>>>>> branch 'master' of https://github.com/backtracker1226/moonlight.git
 	
 	
 	
