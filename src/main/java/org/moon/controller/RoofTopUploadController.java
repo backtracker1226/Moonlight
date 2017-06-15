@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
+@RequestMapping("/roof/*")
 public class RoofTopUploadController {
 
 	private static final Logger logger = Logger.getLogger(RoofTopUploadController.class);
@@ -53,7 +54,7 @@ public class RoofTopUploadController {
 
 	private String uploadPath = "C:\\moon";
 	@ResponseBody
-	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value = "/uploadAjax2", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
 
 		logger.info("originalName: " + file.getOriginalFilename());
@@ -106,7 +107,7 @@ public class RoofTopUploadController {
 	}
 
 	@ResponseBody
-	@PostMapping("/deleteFile")
+	@PostMapping("/deleteFile2")
 	public ResponseEntity<String> deleteFile(String fileName) {
 
 		logger.info("delete file: " + fileName);

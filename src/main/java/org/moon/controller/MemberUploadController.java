@@ -35,8 +35,8 @@ public class MemberUploadController {
 		
 	}
 	
-	@Resource(name= "uploadPath")
-	private String uploadPath;
+
+	private String uploadPath="c:\\moon";
 	
 	/*@PostMapping("/uploadForm")
 	public void uploadFormPost(MultipartFile file, Model model)throws Exception{
