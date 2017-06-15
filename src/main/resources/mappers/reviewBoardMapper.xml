@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="org.moon.mappers.reviewBoardMapper">
+ 
+ <insert id="create">
+ 
+ insert into tbl_board_review(
+ bno, title, reviewcon, uname)
+ values(seq_board_review.nextval, #{title}, #{reviewcon}, #{uname})
+ 
+ </insert>
+ <select id="read" resultType="BoardVO">
+ 
+ select * from tbl_board_review where bno = #{bno}
+ 
+ </select>
+ 
+ <delete id="delete" parameterType="Integer">
+ 
+ delete from tbl_board_review where bno = #{bno}
+ 
+ </delete>
+ 
+ <update id="update" parameterType="BoardVO">
+ 
+ update tbl_board_review set title = #{title}, reviewcon = #{reviewcon}, uname = #{uname} where bno = #{bno} 
+ 
+ </update> 
+ 
+  <select id="list" resultType="BoardVO">
+ <![CDATA[ 
+    select X.rnum, X.bno, X.uname, X.title, X.reviewcon, X.regdate, X.viewctn, X.updatedate
+from ( 
+    select rownum as rnum, A.bno, A.uname, A.title, A.reviewcon, A.regdate, A.viewctn, A.updatedate
+    from (
+        select bno, uname, title, reviewcon, regdate, viewctn ,updatedate
+        from tbl_board_review
+
+        order by bno desc) A
+
+    where rownum <= #{perPageNum} * #{page}                   
+    ]]>
+            <include refid="search"></include>
+             <![CDATA[ ) X
+where X.rnum >= ((#{page} - 1) * 10)+1
+  ]]>
+
+ </select>
+ <select id="totalSize" resultType="Integer">
+ 
+select count(*) from tbl_board_review
+where bno > 0
+ 
+ </select>
+ 
+ <sql id="search">
+
+      <if test="type != null">
+          <if test="type == 'x'.toString()">
+              and bno like '%'||#{keyword}||'%' 
+          </if>
+          <if test="type == 'w'.toString()">
+              and uname like '%'||#{keyword}||'%' 
+          </if>
+          <if test="type == 'n'.toString()">
+              and title like '%'||#{keyword}||'%' 
+          </if>
+          <if test="type == 'c'.toString()">
+              and reviewcon like '%'||#{keyword}||'%' 
+          </if>
+          <if test="type == 'nc'.toString()">
+              and title like '%'||#{keyword}||'%' OR reviewcon like '%'||#{keyword}||'%'
+          </if>
+      </if>
+      
+</sql>
+ 
+
+ </mapper>
+ 
