@@ -28,40 +28,23 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberUploadController {
 	
 	private static final Logger logger = Logger.getLogger(MemberUploadController.class);
-	
-	@GetMapping("/uploadForm")
-	public void uploadFormGet(){
 		
+	private String memberUploadPath="c:\\moon";
 		
-	}
-	
-
-	private String uploadPath="c:\\moon";
-	
-	/*@PostMapping("/uploadForm")
-	public void uploadFormPost(MultipartFile file, Model model)throws Exception{
-		
-		String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
-		
-		model.addAttribute("savedName", savedName);
-		
-	}*/
-	
 	@ResponseBody
-	@RequestMapping(value = "/uploadAjax", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value = "/imgUploadAjax", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file)throws Exception{
 		
 		logger.info("originalName: " + file.getOriginalFilename());
 		logger.info("uploadAjax start!");
 		
 		return new ResponseEntity<>(UploadFileUtils.uploadFile
-				(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
-		
+				(memberUploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
 		
 	}
 	
 	@ResponseBody
-	@RequestMapping("/displayFile")
+	@RequestMapping("/displayImgFile")
 	public ResponseEntity<byte[]> displayFile(String fileName)throws Exception{
 		
 		InputStream in = null;
@@ -78,7 +61,7 @@ public class MemberUploadController {
 			
 			HttpHeaders headers = new HttpHeaders();
 			
-			in = new FileInputStream(uploadPath+fileName);
+			in = new FileInputStream(memberUploadPath+fileName);
 			
 			if(mType != null){
 				
@@ -102,7 +85,7 @@ public class MemberUploadController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/deleteFile")
+	@PostMapping("/deleteImgFile")
 	public ResponseEntity<String> deleteFile(String fileName){
 		
 		logger.info("delete file: "+ fileName);
@@ -122,36 +105,16 @@ public class MemberUploadController {
 			String end = fileName.substring(14);
 			logger.info("front: "+front);
 			logger.info("end: "+end);
-			new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
+			new File(memberUploadPath + (front+end).replace('/', File.separatorChar)).delete();
 			
 		}
 		logger.info("2222");
-		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+		new File(memberUploadPath + fileName.replace('/', File.separatorChar)).delete();
 		
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 		
 	}
 	
-	@ResponseBody
-	@PostMapping("/uploadOption")
-	public void uploadOption(@RequestParam(value="options[]") List<String> optionArr){
-		
-		logger.info(""+optionArr);
-	}
-	
-
-	/*private String uploadFile(String originalFilename, byte[] fileData) throws Exception{
-		
-		UUID uid = UUID.randomUUID();
-		
-		String savedName = uid.toString() + "_" + originalFilename;
-		
-		File target = new File(uploadPath,savedName);
-		
-		FileCopyUtils.copy(fileData, target);
-		
-		return savedName;
-	}*/
 	
 	@ResponseBody
 	@PostMapping("/deleteAllImgFiles")
@@ -173,9 +136,9 @@ public class MemberUploadController {
 				String front = fullName.substring(0, 12);
 				String end = fullName.substring(14);
 				
-				new File(uploadPath + (front+end).replace('/',  File.separatorChar)).delete();
+				new File(memberUploadPath + (front+end).replace('/',  File.separatorChar)).delete();
 				}
-			new File(uploadPath + fullName.replace('/', File.separatorChar)).delete();
+			new File(memberUploadPath + fullName.replace('/', File.separatorChar)).delete();
 			}
 		}
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
@@ -189,7 +152,7 @@ public class MemberUploadController {
 		logger.info("modifyAjax start!");
 		
 		return new ResponseEntity<>(UploadFileUtils.uploadFile
-				(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
+				(memberUploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
 		
 		
 	}

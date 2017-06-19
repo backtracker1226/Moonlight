@@ -27,9 +27,9 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<beans:bean id="uploadPath" class="java.lang.String">
+	<!-- <beans:bean id="uploadPath" class="java.lang.String">
     <beans:constructor-arg value="C://moon//upload"></beans:constructor-arg>
-    </beans:bean>
+    </beans:bean> -->
 
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> <!-- 파일 업로드로 들어오는 데이터를 처리하기 위한 객체 : multipartResolver -->

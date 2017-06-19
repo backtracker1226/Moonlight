@@ -5,7 +5,6 @@
 	pageEncoding="UTF-8"%>
 <html>
 <%@include file="../include/header.jsp"%>
-<%@include file="../include/script.jsp"%>
 <%@include file="../include/banner.jsp"%>
 <body>
 
@@ -125,6 +124,12 @@
 
 <script>
 
+/* 악의적 도배방지용 뒤로가기 막기 기능 */
+history.pushState(null, null, location.href);
+window.onpopstate = function(event) {
+	history.go(1);
+};
+
 $(document).ready(function(e){
 	
 	var formObj = $("form[role='form']");
@@ -162,9 +167,11 @@ $(document).ready(function(e){
 	});
 	
 	$("#mlistBtn").on("click",function(e){
-		formObj.attr("method", "get");
+		e.preventDefault();
+		/* formObj.attr("method", "get");
 		formObj.attr("action", "/member/mlistPage")
-		formObj.submit();
+		formObj.submit(); */
+		self.location = "/member/mlistPage?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}";
 	});
 	
 	var mno = ${mviewVO.mno};

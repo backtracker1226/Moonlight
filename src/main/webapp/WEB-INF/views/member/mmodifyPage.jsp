@@ -6,7 +6,6 @@
 	pageEncoding="UTF-8"%>
 <html>
 <%@include file="../include/header.jsp"%>
-<%@include file="../include/script.jsp"%>
 <%@include file="../include/banner.jsp"%>
 <body>
 
@@ -138,8 +137,11 @@ $(document).ready(function(e){
 	
 	$("#mlistPageBtn").on("click", function(e){
 		
-		formObj.attr("method", "get");
-		formObj.attr("action", "/member/mlistPage");
+		e.preventDefault();
+/* 		formObj.attr("method", "get");
+		formObj.attr("action", "/member/mlistPage"); */
+		self.location = "/member/mlistPage?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}";
+		
 	});
 	
 /* 	$("#mmodifyPageBtn").on("click", function(e){

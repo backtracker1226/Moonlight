@@ -20,7 +20,7 @@
 <script type="text/javascript" src="/resources/js/waypoints.min.js"></script> 
 <script type="text/javascript" src="/resources/js/jquery.isotope.min.js"></script> 
 <!-- <!-- <script type="text/javascript" src="/resources/js/jquery.gmap.min.js"></script> 
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> --> -->
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> -->
 <script type="text/javascript" src="/resources/rs-plugin/js/jquery.themepunch.plugins.min.js"></script> 
 <script type="text/javascript" src="/resources/rs-plugin/js/jquery.themepunch.revolution.min.js"></script> 
 <script type="text/javascript" src="/resources/js/custom.js"></script> 

@@ -9,7 +9,6 @@
 <!-- include 파일 -->
 
 <%@include file="../include/header.jsp"%>
-<%@include file="../include/script.jsp"%>
 <%@include file="../include/banner.jsp"%>
 
 <body>
