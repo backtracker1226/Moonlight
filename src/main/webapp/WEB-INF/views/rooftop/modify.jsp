@@ -133,6 +133,7 @@
         <div id="message"></div>
         <!-- Error message display -->
         <form class="clearfix mt50" role="form" method="post" name="contactform" id="contactform">
+        	
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -182,8 +183,8 @@
             <div>		  
             	<input name="rtaddress" type="text" id="rtaddress" value="${rtvo.rtaddress}" class="form-control" 
             	style="display:block; height: 46px; background-color: white;" readonly="readonly" placeholder="검색 버튼을 눌러주세요."/>
-            	<input type="hidden" name="rtlat" id="lat" value="">
-            	<input type="hidden" name="rtlng" id="lng" value="">
+            	<input type="hidden" name="rtlat" id="lat" value="${rtvo.rtlat}">
+            	<input type="hidden" name="rtlng" id="lng" value="${rtvo.rtlng}">
             	            	
             	<button type="button" id="modalBtn" class="btn btn-primary" 
             	data-toggle="modal" data-target="#myModal" style="float: right; height: 46px;">주소 검색</button>
@@ -303,8 +304,16 @@
         </div>
 					
 				</div>
+				
+			<input type="hidden" name="rtid" value="${rtvo.rtid}">
+			<input type="hidden" name="page" value="${cri.page}">
+			<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+			<input type="hidden" name="searchType" value="${cri.searchType}">
+			<input type="hidden" name="keyword" value="${cri.keyword}">
          
-          <button id="registerForm" type="submit" class="btn  btn-lg btn-primary" style="float: right; ">옥상 등록하기</button>
+          <button id="updateBtn" type="submit" class="btn  btn-lg btn-primary" style="float: right; ">수정하기</button>
+          <button type="submit" id="cancleBtn" class="btn  btn-lg btn-primary" style="float:left">취소</button>
+         
         </form>
       </div>
     </section>
@@ -323,7 +332,7 @@
               
       </div>
       <div class = "modal-header2">
-      <input name="rtaddress" type="text" id="rtaddress2" value="" class="form-control" 
+      <input name="rtaddress2" type="text" id="rtaddress2" value="" class="form-control" 
       style="display: inline-block; height: 46px; background-color: white;" readonly="readonly" placeholder="지도를 클릭하면 주소가 들어갑니다."/>
       <!-- <button id="addrSearchBtn" type="button" class="btn btn-primary" style="height: 46px;">주소 검색</button> -->
       </div>
@@ -372,11 +381,20 @@ $(document).ready(function(){
 	
 	var rtid = ${rtvo.rtid};
 	//var block;
-	var formObj = $("form[role='form']");
-	
+	var formObj = $("#contactform");
+	//var formObj = $("form[role='form']");
+	//var rtaddress = ${rtvo.rtaddress};
+	//console.log($("#rtaddress").val());
+	//console.log(${rtvo});
 	var template = Handlebars.compile($("#template").html());
 	//var index = 0;
-
+	//console.log(rtaddress);
+	/* $(".fbtn").on("click", function(e){
+		
+		checkboxArr();
+		
+	}); */
+	
 	 $(".uploadedList").on("dragenter dragover", function(event){
 		event.preventDefault();
 	});
@@ -392,9 +410,11 @@ $(document).ready(function(){
 		
 		formData.append("file", file);	
 		//console.log(file.type);
+		
+		//파일이 있는지 없는지 검사
 		if(file != null){
-			if(file.type=='image/jpeg'||file.type=='image/png'||file.type=='image/gif'||file.type=='image/jpg'){
-				if($("img[name='rtimg']").length < 10){
+			if(file.type=='image/jpeg'||file.type=='image/png'||file.type=='image/gif'||file.type=='image/jpg'){//파일 타입을 검사
+				if($("img[name='rtimg']").length < 10){//파일은 10개까지만 넣을 수 있게 한정
 					$.ajax({
 						  url: '/uploadAjax',
 						  data: formData,
@@ -432,7 +452,7 @@ $(document).ready(function(){
 		}
 	});
 		
-	
+	//옵션 체크박스 눌렀을 시 이벤트
 	$("#img").on("change", function(event){
 		
 		event.preventDefault();
@@ -447,8 +467,8 @@ $(document).ready(function(){
 		console.log(file.type);
 		
 		formData.append("file", file);
-		if(file != null){
-			if(file.type=='image/jpeg'||file.type=='image/png'||file.type=='image/gif'||file.type=='image/jpg'){
+		if(file != null){//파일이 있는지 확인
+			if(file.type=='image/jpeg'||file.type=='image/png'||file.type=='image/gif'||file.type=='image/jpg'){//파일 타입 확인
 				if($("img[name='rtimg']").length < 10){		
 					$.ajax({
 						  url: '/uploadAjax',
@@ -487,7 +507,8 @@ $(document).ready(function(){
 			}
 		}
 	});
-	$(".uploadedList").on("click", ".delbtn", function(event){
+	
+	$(".uploadedList").on("click", ".delbtn", function(event){//이미지 템플릿에서 삭제버튼 눌렀을시 이벤트
 		event.preventDefault();
 		
 		var that = $(this);
@@ -527,7 +548,7 @@ $(document).ready(function(){
 	   
 	});*/
 	
-	$.getJSON("/rooftop/getImg/"+rtid, function(list){
+	$.getJSON("/rooftop/getImg/"+rtid, function(list){//이미지를 받아서 뿌려주기
 		
 		$(list).each(function(){
 			
@@ -541,7 +562,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$.getJSON("/rooftop/getHashtag/"+rtid, function(list){
+	$.getJSON("/rooftop/getHashtag/"+rtid, function(list){//해쉬태그 뿌려주기
 			
 		var block;
 		
@@ -558,7 +579,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$.getJSON("/rooftop/getOption/"+rtid, function(list){
+	$.getJSON("/rooftop/getOption/"+rtid, function(list){//옵션 체크박스 뿌려주기
 		
 		/* $(list).each(function(index){
 			console.log(list);
@@ -566,10 +587,11 @@ $(document).ready(function(){
 			
 			
 		}); */
-		
-		$(list).each(function(index){
+		console.log(list);
+		$(list).each(function(index){//각각의 옵션 체크박스를 만든다
 			if($(".input_class_checkbox").val()==list[index]){
 				$("#class_checkbox").attr('class', 'circle checked');
+				$(".input_class_checkbox").attr("checked", true);
 			}
 		});
 		
@@ -577,6 +599,7 @@ $(document).ready(function(){
 			
 			if($(".ch_fire").val()==list[index]){
 				$("#ch_fire").attr('class', 'circle checked');
+				$(".ch_fire").attr("checked", true);
 			}
 		});
 		
@@ -584,6 +607,7 @@ $(document).ready(function(){
 			
 			if($(".ch_microphone").val()==list[index]){
 				$("#ch_microphone").attr('class', 'circle checked');
+				$(".ch_microphone").attr("checked", true);
 			}
 		});
 		
@@ -591,6 +615,7 @@ $(document).ready(function(){
 			
 			if($(".ch_wheelchair").val()==list[index]){
 				$("#ch_wheelchair").attr('class', 'circle checked');
+				$(".ch_wheelchair").attr("checked", true);
 			}
 		});
 		
@@ -598,24 +623,28 @@ $(document).ready(function(){
 			
 			if($(".ch_car").val()==list[index]){
 				$("#ch_car").attr('class', 'circle checked');
+				$(".ch_car").attr("checked", true);
 			}
 		});
 		
 		$(list).each(function(index){
 			
 			if($(".ch_animal").val()==list[index]){
-				$("#.ch_animal").attr('class', 'circle checked');
+				$("#ch_animal").attr('class', 'circle checked');
+				$(".ch_animal").attr("checked", true);
 			}
 		});
+		//checkboxArr();
 		
 	});
-	$(".fbtn").on("click", function(e){
+	/* $(".fbtn").on("click", function(e){
 		
 		checkboxArr();
+		hashtagArr();
 		
 	});
-	
-	$("#tagBtn").on("click", function(e){
+	 */
+	$("#tagBtn").on("click", function(e){//태그 추가 버튼 이벤트
 		e.preventDefault();
 		
 		console.log("tagButton!");
@@ -667,7 +696,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$("#tagPlus").on("click", ".delbtn", function(event){
+	$("#tagPlus").on("click", ".delbtn", function(event){//태그의 삭제버튼 이벤트
 		event.preventDefault();
 		
 		var that = $(this);
@@ -679,7 +708,7 @@ $(document).ready(function(){
 	});
 	
  
-	$("#contactform").submit(function(event){
+	$("#contactform").submit(function(event){//submit 이벤트
 		event.preventDefault();
 		
 		var that = $(this);
@@ -693,10 +722,23 @@ $(document).ready(function(){
 		that.append(str);
 		checkboxArr();
 		hashtagArr();
+		
+		formObj.attr("method", "post");
+		formObj.attr("action", "/rooftop/modify");
 
 		that.get(0).submit();
 	});
 
+	$("#cancleBtn").on("click", function(e){//취소 버튼 이벤트
+		e.preventDefault();
+		console.log(formObj);
+		//formObj.attr("method", "get");
+		//formObj.attr("action", "/rooftop/list");
+		//formObj.submit();
+		self.location = "/rooftop/list?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}";
+		//formObj.submit();
+
+	});
 	
 		/* formObj.submit(function(event){
 		event.preventDefault();
@@ -717,11 +759,16 @@ $(document).ready(function(){
 		that.get(0).submit();
 	}); */
 	
-	function checkboxArr(){
+	function checkboxArr(){//옵션값을 배열에 저장하여 보냄
 		
 		var checkArr = [];
+		//console.log($("input[name='options']:checked").find("#ch_animal"));
+		console.log($("input[name='options']:checked").length);
+		console.log($(this));
 		$("input[name='options']:checked").each(function(i){
+			//console.log($(this));
 			checkArr.push($(this).val());
+			console.log("111");
 		});
 		console.log(checkArr);
 		$.ajax({
@@ -735,14 +782,14 @@ $(document).ready(function(){
 				
 	}
 	
-	function hashtagArr(){
+	function hashtagArr(){//해쉬태그를 배열에 저장하여 ajax로 보냄
 		
 		var tagArr = [];
 		$("input[name='hashtags']").each(function(e){
 			
 			tagArr.push($(this).val());
 		});
-		console.log(tagArr);
+		console.log("태그함수임"+tagArr);
 		$.ajax({
 			
 			url:"/uploadTags",
@@ -753,7 +800,7 @@ $(document).ready(function(){
 		});
 		
 	}
-	
+	//채크박스를 만들어준다.
 	$('.input_class_checkbox').each(function(){
 	    $(this).hide().after('<div class="circle" id="class_checkbox" style="cursor: pointer;"><label for="PCLAP">'
 	   + '<i id="pc" class="fa fa-desktop fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
@@ -805,7 +852,7 @@ $(document).ready(function(){
 	});
 	
 	$('.ch_animal').each(function(){
-	    $(this).hide().after('<div class="circle" id="ch_animal" style="cursor: pointer;"><label for="animal">'
+	    $(this).hide().after('<div class="circle" id="ch_animal" style="cursor: pointer;" value="animal"><label for="animal">'
 	   + '<i id="ani" class="fa fa-paw fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
 
 	});
@@ -820,7 +867,7 @@ $(document).ready(function(){
 </script>
 
 <script>
-	
+	//지도 관련 스크립트
 	var rtaddress = $("#rtaddress");
 	var rtaddress2 = $("#rtaddress2");
 	
@@ -865,8 +912,9 @@ $(document).ready(function(){
 	            rtaddress2.val(result[0].jibunAddress.name);
 	            
 	            // 마커를 클릭한 위치에 표시합니다 
-	            $("#lat").val(mouseEvent.latLng.getLat());
+	            //$("#lat").val(mouseEvent.latLng.getLat());
 				$("#lng").val(mouseEvent.latLng.getLng());
+				$("#address").val(rtaddress2.val());
 	            marker.setPosition(mouseEvent.latLng);
 	            marker.setMap(map);
 	            panTo(mouseEvent.latLng.getLat(), mouseEvent.latLng.getLng());
@@ -884,6 +932,7 @@ $(document).ready(function(){
 		e.preventDefault();
 			
 		rtaddress.val(rtaddress2.val());
+		console.log(rtaddress.val());
 	    $('#myModal').modal('hide')
 	    
 	});

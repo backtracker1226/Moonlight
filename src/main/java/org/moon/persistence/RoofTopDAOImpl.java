@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.moon.domain.RoofTopSearchCriteria;
 import org.moon.domain.RoofTopVO;
 import org.springframework.stereotype.Repository;
 
@@ -144,6 +145,24 @@ public class RoofTopDAOImpl implements RoofTopDAO {
 	public int totalCount() throws Exception {
 		
 		return sess.selectOne(namespace+".count");
+	}
+
+	@Override
+	public List<RoofTopVO> searchList(RoofTopSearchCriteria cri) throws Exception {
+		
+		return sess.selectList(namespace+".searchList", cri);
+	}
+
+	@Override
+	public int searchListCount(RoofTopSearchCriteria cri) throws Exception {
+		
+		return sess.selectOne(namespace+".searchListCount", cri);
+	}
+
+	@Override
+	public void delete(Integer rtid) throws Exception {
+		sess.delete(namespace+".delete", rtid);
+		
 	}
 
 }

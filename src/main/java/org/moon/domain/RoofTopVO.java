@@ -15,6 +15,17 @@ public class RoofTopVO {
 	private String rtpurpose;
 	private double rtlat;
 	private double rtlng;
+	
+	private int price;
+	private int minpeople;
+	private int maxpeople;
+	private Date regdate;
+	private Date updatedate;
+	
+	private String[] files;
+	private String[] hashtags;
+	private String[] options;
+	
 	public double getRtlat() {
 		return rtlat;
 	}
@@ -39,15 +50,7 @@ public class RoofTopVO {
 	public void setRtpurpose(String rtpurpose) {
 		this.rtpurpose = rtpurpose;
 	}
-	private int price;
-	private int minpeople;
-	private int maxpeople;
-	private Date regdate;
-	private Date updatedate;
 	
-	private String[] files;
-	private String[] hashtags;
-	private String[] options;
 	public Integer getRtid() {
 		return rtid;
 	}

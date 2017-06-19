@@ -1,16 +1,18 @@
 package org.moon.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.moon.domain.RoofTopPageMaker;
+import org.moon.domain.RoofTopSearchCriteria;
 import org.moon.domain.RoofTopVO;
 import org.moon.service.RoofTopService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,26 +47,28 @@ public class RoofTopController {
 		rttr.addFlashAttribute("msg", "success");
 		logger.info(vo);
 		
-		return "redirect:/";
+		return "redirect:/rooftop/list";
 		
 	}
 	
 	@GetMapping("/read")
-	public void readRooftop(@RequestParam("rtid")Integer rtid, Model model)throws Exception{
+	public void readRooftop(@RequestParam("rtid")Integer rtid, Model model, @ModelAttribute("cri")RoofTopSearchCriteria cri)throws Exception{
 		
+		logger.info(service.readRooftop(rtid));
 		model.addAttribute("rtvo", service.readRooftop(rtid));
 		
 	}
 	
 	@GetMapping("/modify")
-	public void modifyGET(Integer rtid, Model model) throws Exception {
+	public void modifyGET(Integer rtid, Model model, @ModelAttribute("cri")RoofTopSearchCriteria cri) throws Exception {
 		
 		logger.info("modify get start");
+		logger.info(service.readRooftop(rtid));
 	    model.addAttribute("rtvo", service.readRooftop(rtid));
 	    
 	}
 
-	@PostMapping("/modify")
+	/*@PostMapping("/modify")
 	public String modifyPOST(RoofTopVO rtvo, RedirectAttributes rttr) throws Exception {
 
 	    
@@ -75,10 +79,58 @@ public class RoofTopController {
 	    logger.info("modify post start");
 	    logger.info(rtvo);
 
-	    return "redirect:/";
+	    return "redirect:/list";
+	}*/
+	
+	@PostMapping("/modify")
+	public String modifyPOST(RoofTopVO rtvo, RedirectAttributes rttr, RoofTopSearchCriteria cri) throws Exception{
+		
+		logger.info("modify post start");
+		
+		service.modify(rtvo);
+				
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		rttr.addFlashAttribute("msg", "success");
+		
+		logger.info(""+rtvo);
+		
+		return "redirect:/rooftop/list";
+		
+	}
+	
+	@PostMapping("/remove")
+	public String mremovePage(@RequestParam("rtid") Integer rtid, RedirectAttributes rttr, RoofTopSearchCriteria cri) throws Exception{
+		
+		service.remove(rtid);
+		
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		rttr.addFlashAttribute("msg", "success");
+		
+		return "redirect:/rooftop/list";
 	}
 	
 	@GetMapping("/list")
+	public void SearchList(@ModelAttribute("cri")RoofTopSearchCriteria cri, Model model)throws Exception{
+		
+		
+		model.addAttribute("list", service.searchList(cri));
+				
+		RoofTopPageMaker pageMaker = new RoofTopPageMaker();
+		pageMaker.setCri(cri);
+				
+		pageMaker.setTotalCount(service.searchCount(cri));
+				
+		model.addAttribute("pageMaker", pageMaker);
+		//rttr.addFlashAttribute("msg", "fail");
+	}
+	
+	/*@GetMapping("/list")
 	public void allList(Model model)throws Exception{
 		
 		logger.info("allList start");
@@ -86,7 +138,7 @@ public class RoofTopController {
 		list = service.allList();
 		
 		model.addAttribute("list", list);
-	}
+	}*/
 	
 	/*@GetMapping("/regist2")
 	public void registGet2(RoofTopVO vo, Model model)throws Exception{

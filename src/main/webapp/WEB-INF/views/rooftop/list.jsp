@@ -49,7 +49,7 @@
 						<c:forEach items="${list}" var="list">
 							<tr>
 								<td>${list.rtid}</td>
-								<td>${list.rtname}</td>
+								<td><a href="/rooftop/read${pageMaker.makeSearch(pageMaker.cri.page)}&rtid=${list.rtid}">${list.rtname}</td>
 								<td>${list.rtaddress}</td>
 								<td>${list.regdate}</td>
 								<td>${list.updatedate}</td>
@@ -59,20 +59,89 @@
 					</table>
 				</div>
 				<div class = "text-center mt50">
-				<ul class="pagination pagination-lg clearfix">
-        <li class="disabled"><a href="#">«</a></li>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">6</a></li>
-        <li><a href="#">7</a></li>
-        <li><a href="#">8</a></li>
-        <li><a href="#">9</a></li>
-        <li><a href="#">10</a></li>
-        <li><a href="#">»</a></li>
+		<ul class="pagination pagination-lg clearfix">
+	        <c:if test="${pageMaker.prev}">
+	        	<li>
+	        		<a href="list${pageMaker.makeSearch(pageMaker.startPage - 1)}">«</a>
+	        	</li>
+	        </c:if>
+	        
+	        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+	        	<li
+	        		<c:out value="${pageMaker.cri.page == idx ? 'class=active' : '' }"/>>
+	        		<a href="list${pageMaker.makeSearch(idx)}">${idx}</a>
+	        	</li>
+	        </c:forEach>
+	        
+	        <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+	        	<li>
+	        		<a href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}">»</a>
+	        	</li>
+	        </c:if>
       </ul>
       </div>
+      <button type="submit" id="newBtn" class="btn  btn-lg btn-primary" style="float:right;">등록</button>	
+    <div class="box-body">
+      
+	<select name="searchType">
+    	<option value="x" <c:out value="${cri.searchType == null ? 'selected' : ''}"/>>---</option>
+    	<option value="rname" <c:out value="${cri.searchType eq 'rname' ? 'selected' : ''}"/>>옥상명</option>
+    	<option value="raddress" <c:out value="${cri.searchType eq 'raddress' ? 'selected' : ''}"/>>주소</option>
+    	<option value="rna" <c:out value="${cri.searchType eq 'rna' ? 'selected' : ''}"/>>옥상명 or 주소</option>
+    	
+	</select>
+	
+	<input type="text" name="keyword" id="keywordInput" value="${cri.keyword}">
+	<button type="button" id="searchBtn">Search</button>
+	
+</div>
 			</div>
+			
+<script>
+
+	/* 등록/수정/삭제 후 Alert창 띄워주는 코드는 redirect가 모두 mlistPage이기 때문에 mlistPage에 위치한다 */
+	var result = "${msg}";
+	
+	if(result=="success"){
+		  //console.log("msgmsgmsmg");
+		  //alert("완료되었습니다!!");
+		  swal(
+		  				'완료되었습니다.',
+		  				'',
+		  				'success'
+					)
+		  //location.replace(self.location);
+		  }
+	/* 악의적 도배방지용 뒤로가기 막기 기능 */
+	history.pushState(null, null, location.href);
+	window.onpopstate = function(event) {
+		history.go(1);
+	};
+	
+	
+</script>
+
+<script>
+	
+	/* 검색버튼 클릭 시 제대로 동작 시키기 */
+	$(document).ready(function(e){
+		  
+		  $("#searchBtn").on("click", function(e){
+			  console.log("-----------");
+			  self.location = "list"
+			   + "${pageMaker.makeQuery(1)}"
+			   + "&searchType="
+			   + $("select option:selected").val()
+			   + "&keyword="
+			   + encodeURIComponent($("#keywordInput").val());
+		  });
+		  
+		  $("#newBtn").on("click",function(e){
+			  console.log("------");
+			  self.location = "regist";
+		  });
+		  
+	});
+
+</script>
 <%@include file="../include/footer.jsp" %>

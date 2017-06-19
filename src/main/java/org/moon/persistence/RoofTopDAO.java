@@ -2,6 +2,7 @@ package org.moon.persistence;
 
 import java.util.List;
 
+import org.moon.domain.RoofTopSearchCriteria;
 import org.moon.domain.RoofTopVO;
 
 public interface RoofTopDAO {
@@ -34,11 +35,17 @@ public interface RoofTopDAO {
 	
 	public RoofTopVO read(Integer rtid)throws Exception;
 	
+	public void delete(Integer rtid)throws Exception;
+	
 	public void update(RoofTopVO rtvo) throws Exception;
 	
 	public List<RoofTopVO> allList()throws Exception;
 	
 	public int totalCount()throws Exception;
+	
+	public List<RoofTopVO> searchList(RoofTopSearchCriteria cri)throws Exception;
+	
+	public int searchListCount(RoofTopSearchCriteria cri)throws Exception;
 	
 	
 

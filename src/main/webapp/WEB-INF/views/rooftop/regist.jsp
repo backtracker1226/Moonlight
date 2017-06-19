@@ -426,6 +426,12 @@ $(document).ready(function(){
 		}
 	});
 		
+	/* $(".fbtn").on("click", function(e){//값들이 배열에 저장되었나 확인용 버튼 이벤트
+		
+		checkboxArr();
+		hashtagArr();
+		
+	}); */
 	
 	$("#img").on("change", function(event){
 		
@@ -554,6 +560,7 @@ $(document).ready(function(){
 		
 		var checkArr = [];
 		$("input[name='options']:checked").each(function(i){
+			console.log($(this));
 			checkArr.push($(this).val());
 		});
 		console.log(checkArr);
@@ -589,7 +596,8 @@ $(document).ready(function(){
 	
 	$('.input_class_checkbox').each(function(){
 	    $(this).hide().after('<div class="circle" id="class_checkbox" style="cursor: pointer;"><label for="PCLAP">'
-	   + '<i id="pc" class="fa fa-desktop fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
+	   + '<i id="pc" class="fa fa-desktop fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>'
+	   +'<input type="hidden" name = "options" value ="pclap"');
 
 	});
 
@@ -599,7 +607,8 @@ $(document).ready(function(){
 	
 	$('.ch_fire').each(function(){
 	    $(this).hide().after('<div class="circle" id="ch_fire" style="cursor: pointer;"><label for="fire">'
-	   + '<i id="fi" class="fa fa-fire-extinguisher fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
+	   + '<i id="fi" class="fa fa-fire-extinguisher fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>'
+	   +'<input type="hidden" name = "options" value ="fire-extinguisher"');
 
 	});
 
@@ -609,7 +618,8 @@ $(document).ready(function(){
 	
 	$('.ch_microphone').each(function(){
 	    $(this).hide().after('<div class="circle" id="ch_microphone" style="cursor: pointer;"><label for="microphone">'
-	   + '<i id="mc" class="fa  fa-microphone fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
+	   + '<i id="mc" class="fa  fa-microphone fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>'
+	   +'<input type="hidden" name = "options" value ="microphone"');
 
 	});
 
@@ -619,7 +629,8 @@ $(document).ready(function(){
 	
 	$('.ch_wheelchair').each(function(){
 	    $(this).hide().after('<div class="circle" id="ch_wheelchair" style="cursor: pointer;"><label for="wheelchair">'
-	   + '<i id="wc" class="fa fa-wheelchair fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
+	   + '<i id="wc" class="fa fa-wheelchair fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>'
+	   +'<input type="hidden" name = "options" value ="wheelchair"');
 
 	});
 
@@ -629,7 +640,8 @@ $(document).ready(function(){
 	
 	$('.ch_car').each(function(){
 	    $(this).hide().after('<div class="circle" id="ch_car" style="cursor: pointer;"><label for="parking">'
-	   + '<i id="ca" class="fa fa-car fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
+	   + '<i id="ca" class="fa fa-car fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>'
+	   +'<input type="hidden" name = "options" value ="parking"');
 
 	});
 
@@ -639,7 +651,8 @@ $(document).ready(function(){
 	
 	$('.ch_animal').each(function(){
 	    $(this).hide().after('<div class="circle" id="ch_animal" style="cursor: pointer;"><label for="animal">'
-	   + '<i id="ani" class="fa fa-paw fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
+	   + '<i id="ani" class="fa fa-paw fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>'
+	   +'<input type="hidden" name = "options" value ="animal"');
 
 	});
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.moon.domain.RoofTopSearchCriteria;
 import org.moon.domain.RoofTopVO;
 import org.moon.persistence.RoofTopDAO;
 import org.springframework.stereotype.Service;
@@ -146,6 +147,28 @@ public class RoofTopServiceImpl implements RoofTopService {
 	public int count() throws Exception {
 		
 		return dao.totalCount();
+	}
+
+	@Override
+	public List<RoofTopVO> searchList(RoofTopSearchCriteria cri) throws Exception {
+		
+		return dao.searchList(cri);
+	}
+
+	@Override
+	public int searchCount(RoofTopSearchCriteria cri) throws Exception {
+		
+		return dao.searchListCount(cri);
+	}
+
+	@Transactional
+	@Override
+	public void remove(Integer rtid) throws Exception {
+		dao.deleteImg(rtid);
+		dao.deleteHashtag(rtid);
+		dao.deleteOption(rtid);
+		dao.delete(rtid);
+		
 	}
 	
 //	@Override

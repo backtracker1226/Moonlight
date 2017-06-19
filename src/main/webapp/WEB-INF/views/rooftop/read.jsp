@@ -114,10 +114,17 @@
 }
 </style>
 <!-- Contact form -->
+<form method="post" class="rtread">
+         	<input type="hidden" name="rtid" value="${rtvo.rtid}">
+			<input type="hidden" name="page" value="${cri.page}">
+			<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+			<input type="hidden" name="searchType" value="${cri.searchType}">
+			<input type="hidden" name="keyword" value="${cri.keyword}">
+		</form>
 
   <div class="container">
     
-    <section id="contact-form" class="mt50" >
+    <section id="contact-form" class="mt50">
       <div class="col-sm-12 ">
         <h1 class="lined-heading"><span>옥상 정보 입력</span></h1>
         
@@ -125,7 +132,7 @@
 
         <div id="message"></div>
         <!-- Error message display -->
-        <form class="clearfix mt50" role="form" method="post" name="contactform" id="contactform">
+        <div class="clearfix mt50">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -168,6 +175,8 @@
           <div class="form-group">
             <label><h3><span class="required">*</span>주소(위치)</h3></label>		  
             <input name="rtaddress" type="text" id="rtaddress" value="${rtvo.rtaddress}" class="form-control" readonly="readonly"/>
+            <input type="hidden" name="rtlat" id="lat" value="${rtvo.rtlat}">
+            	<input type="hidden" name="rtlng" id="lng" value="${rtvo.rtlng}">
           </div>
           
           <div class="form-group">
@@ -248,7 +257,7 @@
             <div class="box-icon">
               <input type="checkbox" name="options" id="fire-extinguisher" value="fire-extinguisher" class="ch_fire" 
               style="display: none; float: left">
-              <div class="circle" id="ch_fire" style="cursor: pointer;" value="fire-extinguisher" ><label for="fire">
+              <div class="circle" id="ch_fire" style="cursor: pointer;"><label for="fire">
 		   	  <i id="fi" class="fa fa-fire-extinguisher fa-lg" style="cursor: pointer;  vertical-align: middle;">
 		   	  </i></label>
 		   	  </div>
@@ -259,7 +268,7 @@
             <div class="box-icon">
               <input type="checkbox" name="options" id="microphone" value="microphone" class="ch_microphone"
               style="display: none; float: left">
-              <div class="circle" id="ch_microphone" style="cursor: pointer;" value="microphone" ><label for="microphone">
+              <div class="circle" id="ch_microphone" style="cursor: pointer;" ><label for="microphone">
 		      <i id="mc" class="fa fa-microphone fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>
               </div>
               </div>
@@ -271,7 +280,7 @@
             <div class="box-icon">
               <input type="checkbox" name="options" id="wheelchair" value="wheelchair" class="ch_wheelchair"
               style="display: none; float: left">
-              <div class="circle" id="ch_wheelchair" style="cursor: pointer;" value="wheelchair" ><label for="wheelchair">
+              <div class="circle" id="ch_wheelchair" style="cursor: pointer;"><label for="wheelchair">
 		      <i id="wc" class="fa fa-wheelchair fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>
               </div>
               </div>  
@@ -280,7 +289,7 @@
             <div class="box-icon">
               <input type="checkbox" name="options" id="parking" value="parking" class="ch_car" 
               style="display: none; float: left">
-              <div class="circle" id="ch_car" style="cursor: pointer;" value="parking" ><label for="parking">
+              <div class="circle" id="ch_car" style="cursor: pointer;"><label for="parking">
 		      <i id="ca" class="fa fa-car fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>
               </div>
               </div> 
@@ -289,7 +298,7 @@
             <div class="box-icon">
               <input type="checkbox" name="options" id="animal" value="animal" class="ch_animal"
               style="display: none; float: left">
-              <div class="circle" id="ch_animal" style="cursor: pointer;" value="animal" ><label for="animal">
+              <div class="circle" id="ch_animal" style="cursor: pointer;"><label for="animal">
 		      <i id="ani" class="fa fa-paw fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>
               </div>
               </div>
@@ -299,9 +308,12 @@
         </div>
 					
 				</div>
-         
-          <button id="registerForm" type="submit" class="btn  btn-lg btn-primary" style="float: right; ">옥상 등록하기</button>
-        </form>
+		
+          <button type="submit" id="listBtn" class="btn  btn-lg btn-primary" style="float:left;">List</button>
+          <button type="submit" id="modifyBtn" class="btn  btn-lg btn-primary" style="float:right;">Modify</button>
+          <button type="submit" id="removeBtn" class="btn  btn-lg btn-primary" style="float:right;">Remove</button>
+          <!-- <button id="registerForm" type="submit" class="btn  btn-lg btn-primary" style="float: right; ">옥상 등록하기</button> -->
+        </div>
       </div>
     </section>
     
@@ -317,7 +329,7 @@
 <script id="template" type="text/x-handlebars-template">
 
 
-<li>
+<li data-src="{{fullName}}">
 <span class="mailbox-attachment-icon has-img">
 	<img src="{{imgsrc}}" alt="Attachment" name="rtimg"/>
 </span>
@@ -335,7 +347,124 @@ $(document).ready(function(){
 	var block;
 	var template = Handlebars.compile($("#template").html());
 	//var index = 0;
+	//console.log($("#rtaddress").val());
 	
+	var formObj = $(".rtread");
+	
+	console.log(formObj);
+	
+	$("#removeBtn").on("click",function(e){//글 삭제 버튼 이벤트
+				
+		var arr = [];
+		var tagarr = [];
+		var optionarr = [];
+		
+		
+		$(".uploadedList li").each(function(index){//이미지를 배열에 저장
+			arr.push($(this).attr("data-src"));			
+		});
+		
+		$("input[name='hashtags']").each(function(e){//해쉬태그를 배열에 저장
+			
+			tagarr.push($(this).val());
+		});
+		
+		$("input[name='options']:checked").each(function(i){	//옵션을 배열에 저장
+						
+			optionarr.push($(this).val());
+			
+		});
+		
+		console.log(arr);
+		console.log(tagarr);
+		console.log(optionarr);
+		
+		//console.log($("input[name='options']:checked").val());
+		
+		if(arr.length > 0){//배열의 길이가 0이 아닐때
+			$.post("/deleteAllFiles", {files:arr}, function(){
+			});
+		}
+		
+		
+		if(tagarr.length > 0){
+			$.post("/deleteAllHashTags", {hashtags:tagarr}, function(){
+			});
+		}
+		
+		if(optionarr.length > 0){
+			$.post("/deleteAllOptions", {options:optionarr}, function(){
+			});
+		}
+		
+		formObj.attr("method", "post");
+		formObj.attr("action", "/rooftop/remove")
+		formObj.submit();
+	});
+
+	
+	$("#modifyBtn").on("click",function(e){//수정버튼 이벤트
+		//e.preventDefault();
+		formObj.attr("method", "get");
+		formObj.attr("action", "/rooftop/modify")
+		formObj.submit();
+	});
+	
+	$("#listBtn").on("click",function(e){//리스트로 가는 버튼 이벤트
+		//e.preventDefault();
+		formObj.attr("method", "get");
+		formObj.attr("action", "/rooftop/list")
+		formObj.submit(); 
+		/* self.location = "list"
+			   + "${pageMaker.makeQuery(1)}"
+			   + "&searchType="
+			   + $("select option:selected").val()
+			   + "&keyword="
+			   + encodeURIComponent($("#keywordInput").val()); */
+	});
+	/* $(".fbtn").on("click", function(e){
+		
+		checkboxArr();
+		hashtagArr();
+		
+	}); */
+	function checkboxArr(){
+		console.log("check start")
+		var checkArr = [];
+		$("input[name='options']:checked").each(function(i){
+			
+			checkArr.push($(this).val());
+		});
+		console.log(checkArr);
+		$.ajax({
+			
+			url:"/uploadOption",
+			type:"post",
+			data:{options: checkArr},
+			dataType:'text'
+			
+		});
+				
+	}
+	function hashtagArr(){
+		
+		var tagArr = [];
+		
+		$("input[name='hashtags']").each(function(e){
+			
+			tagArr.push($(this).val());
+		});
+		console.log(tagArr);
+		$.ajax({
+			
+			url:"/uploadTags",
+			type:"post",
+			data:{hashtags:tagArr},
+			dataType:'text'
+			
+		});
+		
+	}
 	$.getJSON("/rooftop/getImg/"+rtid, function(list){
 		
 		$(list).each(function(){
@@ -354,10 +483,9 @@ $(document).ready(function(){
 				
 		$(list).each(function(index){
 			
-			//console.log(list[index]);
-			block = "<span style='color:black'>"+list[index]+"</span> "/* +"<input type='hidden' name='hashtags' value='"
-			+list[index]+"' class='form-control'>"+"<a href='#' class='btn btn-danger btn-xs delbtn'>"+
-			"<i class='fa fa-fw fa-remove'></i></a></span>"; */
+			console.log(list);
+			block = "<span style='color:black'>"+list[index]+"</span> "+"<input type='hidden' name='hashtags' value='"
+			+list[index]+"' class='form-control'>";
 			
 			$("#tagPlus").append(block);
 			
@@ -366,10 +494,11 @@ $(document).ready(function(){
 	});
 	
 	$.getJSON("/rooftop/getOption/"+rtid, function(list){
-		
+		console.log(list);
 		$(list).each(function(index){
 			if($(".input_class_checkbox").val()==list[index]){
 				$("#class_checkbox").attr('class', 'circle checked');
+				$(".input_class_checkbox").attr("checked", true);
 			}
 		});
 		
@@ -377,6 +506,7 @@ $(document).ready(function(){
 			
 			if($(".ch_fire").val()==list[index]){
 				$("#ch_fire").attr('class', 'circle checked');
+				$(".ch_fire").attr("checked", true);
 			}
 		});
 		
@@ -384,6 +514,7 @@ $(document).ready(function(){
 			
 			if($(".ch_microphone").val()==list[index]){
 				$("#ch_microphone").attr('class', 'circle checked');
+				$(".ch_microphone").attr("checked", true);
 			}
 		});
 		
@@ -391,6 +522,7 @@ $(document).ready(function(){
 			
 			if($(".ch_wheelchair").val()==list[index]){
 				$("#ch_wheelchair").attr('class', 'circle checked');
+				$(".ch_wheelchair").attr("checked", true);
 			}
 		});
 		
@@ -398,171 +530,26 @@ $(document).ready(function(){
 			
 			if($(".ch_car").val()==list[index]){
 				$("#ch_car").attr('class', 'circle checked');
+				$(".ch_car").attr("checked", true);
 			}
 		});
 		
 		$(list).each(function(index){
 			
 			if($(".ch_animal").val()==list[index]){
-				$("#.ch_animal").attr('class', 'circle checked');
+				$("#ch_animal").attr('class', 'circle checked');
+				$(".ch_animal").attr("checked", true);
 			}
 		});
 		
 		
-		/* console.log(list[0]);
-		$('.input_class_checkbox').each(function(){
-		    $(this).hide().after('<div class="circle" id="class_checkbox" style="cursor: pointer;" value="pclap"><label for="pclap"><i id="pc" class="fa fa-desktop fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
-
-		});
 		
-		$('.ch_fire').each(function(){
-		    $(this).hide().after('<div class="circle" id="ch_fire" style="cursor: pointer;" value="fire-extinguisher" ><label for="fire">'
-		   + '<i id="fi" class="fa fa-fire-extinguisher fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
 
-		});
 		
-		$('.ch_microphone').each(function(){
-		    $(this).hide().after('<div class="circle" id="ch_microphone" style="cursor: pointer;" value="microphone" ><label for="microphone">'
-		   + '<i id="mc" class="fa fa-microphone fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
-
-		});
 		
-		$('.ch_wheelchair').each(function(){
-		    $(this).hide().after('<div class="circle" id="ch_wheelchair" style="cursor: pointer;" value="wheelchair" ><label for="wheelchair">'
-		   + '<i id="wc" class="fa fa-wheelchair fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
+	});
 
-		});
-		
-		$('.ch_car').each(function(){
-		    $(this).hide().after('<div class="circle" id="ch_car" style="cursor: pointer;" value="parking" ><label for="parking">'
-		   + '<i id="ca" class="fa fa-car fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
-
-		});
 	
-		$('.ch_animal').each(function(){
-		    $(this).hide().after('<div class="circle" id="ch_animal" style="cursor: pointer;" value="animal" ><label for="animal">'
-		   + '<i id="ani" class="fa fa-paw fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
-
-		}); */
-
-		
-		
-	});
-
-	/* $("#contactform").submit(function(event){
-		event.preventDefault();
-		
-		var that = $(this);
-		
-		var str ="";
-		$(".uploadedList .delbtn").each(function(index){
-			 str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("href") +"'> ";
-			 
-		});
-
-		that.append(str);
-		checkboxArr();
-		hashtagArr();
-
-		that.get(0).submit();
-	});
-	
-	function checkboxArr(){
-		
-		var checkArr = [];
-		$("input[name='options']:checked").each(function(i){
-			checkArr.push($(this).val());
-		});
-		console.log(checkArr);
-		$.ajax({
-			
-			url:"/uploadOption",
-			type:"post",
-			data:{options: checkArr},
-			dataType:'text'
-			
-		});
-				
-	}
-	
-	function hashtagArr(){
-		
-		var tagArr = [];
-		$("input[name='hashtags']").each(function(e){
-			
-			tagArr.push($(this).val());
-		});
-		console.log(tagArr);
-		$.ajax({
-			
-			url:"/uploadTags",
-			type:"post",
-			data:{hashtags:tagArr},
-			dataType:'text'
-			
-		});
-		
-	} */
-	
-	/* $('.input_class_checkbox').each(function(){
-	    $(this).hide().after('<div class="circle" id="class_checkbox" style="cursor: pointer;"><label for="PCLAP">'
-	   + '<i id="pc" class="fa fa-desktop fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
-
-	});
-
-	$('#class_checkbox').on('click', function(){
-	    $(this).toggleClass('checked').prev().prop('checked',$(this).is('.checked'))
-	});
-	
-	$('.ch_fire').each(function(){
-	    $(this).hide().after('<div class="circle" id="ch_fire" style="cursor: pointer;"><label for="fire">'
-	   + '<i id="fi" class="fa fa-fire-extinguisher fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
-
-	});
-
-	$('#ch_fire').on('click', function(){
-	    $(this).toggleClass('checked').prev().prop('checked',$(this).is('.checked'))
-	});
-	
-	$('.ch_microphone').each(function(){
-	    $(this).hide().after('<div class="circle" id="ch_microphone" style="cursor: pointer;"><label for="microphone">'
-	   + '<i id="mc" class="fa  fa-microphone fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
-
-	});
-
-	$('#ch_microphone').on('click', function(){
-	    $(this).toggleClass('checked').prev().prop('checked',$(this).is('.checked'))
-	});
-	
-	$('.ch_wheelchair').each(function(){
-	    $(this).hide().after('<div class="circle" id="ch_wheelchair" style="cursor: pointer;"><label for="wheelchair">'
-	   + '<i id="wc" class="fa fa-wheelchair fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
-
-	});
-
-	$('#ch_wheelchair').on('click', function(){
-	    $(this).toggleClass('checked').prev().prop('checked',$(this).is('.checked'))
-	});
-	
-	$('.ch_car').each(function(){
-	    $(this).hide().after('<div class="circle" id="ch_car" style="cursor: pointer;"><label for="parking">'
-	   + '<i id="ca" class="fa fa-car fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
-
-	});
-
-	$('#ch_car').on('click', function(){
-	    $(this).toggleClass('checked').prev().prop('checked',$(this).is('.checked'))
-	});
-	
-	$('.ch_animal').each(function(){
-	    $(this).hide().after('<div class="circle" id="ch_animal" style="cursor: pointer;"><label for="animal">'
-	   + '<i id="ani" class="fa fa-paw fa-lg" style="cursor: pointer;  vertical-align: middle;"></i></label></div>');
-
-	});
-
-	$('#ch_animal').on('click', function(){
-	    $(this).toggleClass('checked').prev().prop('checked',$(this).is('.checked'));
-	}); */
 	
 });
 

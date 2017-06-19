@@ -2,6 +2,7 @@ package org.moon.service;
 
 import java.util.List;
 
+import org.moon.domain.RoofTopSearchCriteria;
 import org.moon.domain.RoofTopVO;
 
 public interface RoofTopService {
@@ -16,9 +17,15 @@ public interface RoofTopService {
 	
 	public RoofTopVO readRooftop(Integer rtid)throws Exception;
 	
+	public void remove(Integer rtid)throws Exception;
+	
 	public void modify(RoofTopVO rtvo)throws Exception;
 	
 	public List<RoofTopVO> allList()throws Exception;
 	
 	public int count()throws Exception;
+	
+	public List<RoofTopVO> searchList(RoofTopSearchCriteria cri)throws Exception;
+	
+	public int searchCount(RoofTopSearchCriteria cri)throws Exception;
 }

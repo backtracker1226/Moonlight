@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@RequestMapping("/roof/*")
 public class RoofTopUploadController {
 
 	private static final Logger logger = Logger.getLogger(RoofTopUploadController.class);
@@ -38,7 +37,8 @@ public class RoofTopUploadController {
 
 	}
 */
-
+	@Resource(name = "uploadPath")
+	private String uploadPath;
 
 	/*
 	 * @PostMapping("/uploadForm") public void uploadFormPost(MultipartFile
@@ -52,9 +52,8 @@ public class RoofTopUploadController {
 	 * }
 	 */
 
-	private String uploadPath = "C:\\moon";
 	@ResponseBody
-	@RequestMapping(value = "/uploadAjax2", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
 
 		logger.info("originalName: " + file.getOriginalFilename());
@@ -107,7 +106,7 @@ public class RoofTopUploadController {
 	}
 
 	@ResponseBody
-	@PostMapping("/deleteFile2")
+	@PostMapping("/deleteFile")
 	public ResponseEntity<String> deleteFile(String fileName) {
 
 		logger.info("delete file: " + fileName);
@@ -152,12 +151,12 @@ public class RoofTopUploadController {
 
 			MediaType mType = MediaUtils.getMediaType(formatName);
 
-			if (mType != null) {
+			/*if (mType != null) {
 
 				String front = fileName.substring(0, 12);
 				String end = fileName.substring(14);
 				new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
-			}
+			}*/
 
 			new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
 
@@ -165,16 +164,41 @@ public class RoofTopUploadController {
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 
-	
+	@ResponseBody
+	@RequestMapping(value = "/deleteAllHashTags", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteHashTag(@RequestParam(value = "hashtags[]") String[] tagArr) {
 
-	/*
-	 * @ResponseBody
-	 * 
-	 * @PostMapping("/uploadOption") public void
-	 * uploadOption(@RequestParam(value="options[]") List<String> optionArr){
-	 * 
-	 * logger.info("Option: "+optionArr); }
-	 */
+		logger.info("delete all HashTags: " + tagArr);
+
+		if (tagArr == null || tagArr.length == 0) {
+			return new ResponseEntity<String>("deleted", HttpStatus.OK);
+		}
+
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/deleteAllOptions", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteOption(@RequestParam(value = "options[]") String[] optionArr) {
+
+		logger.info("delete all options: " + optionArr);
+
+		if (optionArr == null || optionArr.length == 0) {
+			return new ResponseEntity<String>("deleted", HttpStatus.OK);
+		}
+
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+
+	
+	 /*@ResponseBody
+	 @PostMapping("/uploadOption") public void
+	 uploadOption(@RequestParam(value="options[]") List<String> optionArr){
+	 
+		 logger.info("Option: "+optionArr); 
+	 
+	 }*/
+	 
 
 	@ResponseBody
 	@PostMapping("/uploadOption")
