@@ -56,10 +56,6 @@
                 <label for="email"><span class="required">*</span> E-mail</label>
                 <input name="mmail" type="text" id="member_email" class="form-control" value="${mviewVO.mmail}"readonly="readonly"/>
               </div>
-              <div class="form-group">
-                <label for="name"><span class="required">*</span> Roof Tel.</label>
-                <input name="htel" type="text" id="htel" class="form-control" value="${mviewVO.htel}" readonly="readonly"/>
-              </div>
             </div>
             <!-- 세로 2째줄 -->
             <div class="col-md-6">
@@ -74,10 +70,6 @@
               <div class="form-group">
                 <label for="name"><span class="required">*</span> Phone Number</label>
                 <input name="mhp" type="text" id="member_phone" class="form-control" value="${mviewVO.mhp}" readonly="readonly"/>
-              </div>
-              <div class="form-group">
-                <label for="name"><span class="required">*</span> Roof Address</label>
-                <input name="htel" type="text" id="htel" class="form-control" value="${mviewVO.haddr}" readonly="readonly"/>
               </div>
             </div>
             

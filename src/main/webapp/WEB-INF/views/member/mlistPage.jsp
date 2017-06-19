@@ -29,8 +29,6 @@
         <th>PW</th>
         <th>닉네임</th>
         <th>E-mail</th>
-        <th>옥상 전화번호</th>
-        <th>옥상 주소</th>
         <th>연락처</th>
         <th>등록일자</th>
         </tr>
@@ -43,8 +41,6 @@
             <td>${memberVO.mpw}</td>
             <td>${memberVO.mnick}</td>
             <td>${memberVO.mmail}</td>
-            <td>${memberVO.htel}</td>
-            <td>${memberVO.haddr}</td>
             <td>${memberVO.mhp}</td>
             	<jsp:useBean id="now" class="java.util.Date"/> 
             		  <fmt:formatDate value="${now}" var="today" pattern="yyyy/MM/dd"/>
@@ -158,11 +154,11 @@
     	  
     	  $("#newBtn").on("click",function(e){
     		  console.log("------");
-    		  self.location = "mregister";
+    		  self.location = "/member/mregister";
     	  });
     	  
     	  $("#logoutBtn").on("click", function(e){
-    		  self.location = "logout";
+    		  self.location = "/member/logout";
     	  })
       });
       
