@@ -93,23 +93,29 @@
 
 <select id="listSearch" resultType="MemberVO">
 
-	<![CDATA[
-	select mno, mid, mname, mpw, mmail, mhp, mnick, mh, regdate 
-from 
-(
-  select rownum rno, mno, mid, mname, mpw, mnick, mmail, mhp, mh, regdate 
-  from tbl_member 
-  where mno > 0 
-	  ]]>
-	  
-	<include refid="search"></include>
-	  
-	<![CDATA[
-	  and rownum <= (1) * 10 
-  order by mno desc
-)
-where rno > (1-1) * 10
-	]]>
+	<![CDATA[ 
+    select X.rnum, X.mno, X.mid, X.mname, X.mpw, X.mnick, X.mmail, X.mhp, X.mh, X.regdate
+from ( 
+    select rownum as rnum, A.mno, A.mid, A.mname, A.mpw, A.mnick, A.mmail, A.mhp, A.mh, A.regdate
+    from (
+        select mno, mid, mname, mpw, mnick, mmail, mhp, mh, regdate
+        from tbl_member
+
+        order by mno desc) A
+
+    where rownum <= #{perPageNum} * #{page}                   
+    ]]>
+            <include refid="search"></include>
+             <![CDATA[ ) X
+where X.rnum >= ((#{page} - 1) * 10)+1
+  ]]>
+
+ </select>
+ 
+ <select id="totalSize" resultType="Integer">
+ 
+select count(*) from tbl_board_review
+where bno > 0
 
 </select>
 
