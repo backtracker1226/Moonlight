@@ -45,7 +45,7 @@
 								<th>업데이트 시간</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody style="text-align: center;">
 						<c:forEach items="${list}" var="list">
 							<tr>
 								<td>${list.rtid}</td>
@@ -81,7 +81,7 @@
       </ul>
       </div>
       <button type="submit" id="newBtn" class="btn  btn-lg btn-primary" style="float:right;">등록</button>	
-    <div class="box-body">
+    <div class="box-body" style="text-align: center;">
       
 	<select name="searchType">
     	<option value="x" <c:out value="${cri.searchType == null ? 'selected' : ''}"/>>---</option>

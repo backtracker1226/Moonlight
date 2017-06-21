@@ -149,7 +149,7 @@
 
 	<select id="searchList" resultType="RoofTopVO">
 
-	<![CDATA[
+	<!-- <![CDATA[
 	select rtid, rtname, rtaddress, regdate, updatedate 
 	from 
 	  (
@@ -165,7 +165,23 @@
 	  order by rtid desc
 	  ) 
 	where rno > (#{page} - 1) * #{perPageNum}
-	  ]]>
+	  ]]> -->
+	   <![CDATA[ 
+    select X.rnum, X.rtid, X.rtname, X.rtaddress, X.regdate, X.updatedate
+from ( 
+    select rownum as rnum, A.rtid, A.rtname, A.rtaddress, A.regdate, A.updatedate
+    from (
+        select rtid, rtname, rtaddress, regdate, updatedate
+        from tbl_rooftop 
+		where rtid > 0
+        order by rtid desc) A
+
+    where rownum <= #{page} * #{perPageNum}                   
+    ]]>
+            <include refid="search"></include>
+             <![CDATA[ ) X
+where X.rnum > (#{page} - 1) * #{perPageNum}
+  ]]>
 
 
 	</select>
