@@ -20,7 +20,7 @@
  
  <delete id="delete" parameterType="Integer">
  
- delete from tbl_board_review where bno = #{bno}
+delete from tbl_board_review where bno = #{bno}
  
  </delete>
  
@@ -30,13 +30,25 @@
  
  </update> 
  
+ <update id="veiwupdate">
+ 
+  update tbl_board_review set viewctn = viewctn+1 where bno = #{bno}
+ 
+ </update>
+ 
+ <update id="updateReplyCnt">
+ 
+ update tbl_board_review set replycnt = replycnt + #{amout} where bno = #{bno}
+ 
+ </update>
+ 
   <select id="list" resultType="BoardVO">
  <![CDATA[ 
-    select X.rnum, X.bno, X.uname, X.title, X.reviewcon, X.regdate, X.viewctn, X.updatedate
+    select X.rnum, X.bno, X.uname, X.title, X.reviewcon, X.regdate, X.viewctn, X.updatedate, X.replycnt
 from ( 
-    select rownum as rnum, A.bno, A.uname, A.title, A.reviewcon, A.regdate, A.viewctn, A.updatedate
+    select rownum as rnum, A.bno, A.uname, A.title, A.reviewcon, A.regdate, A.viewctn, A.updatedate, A.replycnt
     from (
-        select bno, uname, title, reviewcon, regdate, viewctn ,updatedate
+        select bno, uname, title, reviewcon, regdate, viewctn ,updatedate, replycnt
         from tbl_board_review
 
         order by bno desc) A

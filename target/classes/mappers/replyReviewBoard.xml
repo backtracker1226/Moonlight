@@ -33,6 +33,12 @@ where X.rnum >= ((#{cri.page} - 1) * 10)+1
  
  </delete>
  
+  <delete id="replydel">
+ 
+ delete from tbl_board_review_reply where bno = #{bno}
+ 
+ </delete>
+ 
  <update id="modify">
  
  update tbl_board_review_reply set replytext = #{replytext}, updatedate=sysdate where rno = #{rno}
@@ -42,6 +48,12 @@ where X.rnum >= ((#{cri.page} - 1) * 10)+1
  <select id="count" resultType="int">
  
  select count(bno) from tbl_board_review_reply where bno = #{bno}
+ 
+ </select>
+ 
+  <select id="getBno" resultType="int">
+ 
+select bno from tbl_board_review_reply where rno = #{rno}
  
  </select>
  

@@ -17,7 +17,7 @@ public class BoardVO {
 			  updatedate date default sysdate,
 			  ski number(30)
 			);*/
-	
+	private Integer replycnt;
 	private Integer bno;
 	private String uname;
 	private String title;
@@ -26,8 +26,12 @@ public class BoardVO {
 	private Timestamp regdate;
 	private Timestamp updatedate;
 	private Integer ski;			// 좋아용 갯수 입니다!
-	
-	
+	public Integer getReplycnt() {
+		return replycnt;
+	}
+	public void setReplycnt(Integer replycnt) {
+		this.replycnt = replycnt;
+	}
 	public Integer getBno() {
 		return bno;
 	}
@@ -78,15 +82,11 @@ public class BoardVO {
 	}
 	@Override
 	public String toString() {
-		return "BoardVO [bno=" + bno + ", uname=" + uname + ", title=" + title + ", reviewcon=" + reviewcon
-				+ ", viewctn=" + viewctn + ", regdate=" + regdate + ", updatedate=" + updatedate + ", ski=" + ski + "]";
+		return "BoardVO [replycnt=" + replycnt + ", bno=" + bno + ", uname=" + uname + ", title=" + title
+				+ ", reviewcon=" + reviewcon + ", viewctn=" + viewctn + ", regdate=" + regdate + ", updatedate="
+				+ updatedate + ", ski=" + ski + "]";
 	}
 	
-	
-	
-	
-	
-
-	
+		
 	
 }

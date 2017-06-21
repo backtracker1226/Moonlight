@@ -24,4 +24,12 @@ public interface ReviewBoardDAO {
 	
 	public Integer getCount(Criteria cri)throws Exception;
 	
+	public void viewUpdate(Integer bno)throws Exception;
+	
+	public void updateReplyCnt(Integer bno, int amout)throws Exception;
+	
+
+	
+
+	
 }

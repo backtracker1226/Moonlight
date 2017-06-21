@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
+		
+		
 	
 <style>
 
@@ -57,17 +59,21 @@
 #miniNav, #miniNav a {
 	color: #BDBDBD;
 }
+
 </style>
+
+<%@ include file="include/header.jsp" %>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
-		
+
+
 	
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 <!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
@@ -76,6 +82,7 @@
 
 <link rel="stylesheet" href="/resources/daumeditor/css/editor.css"
 	type="text/css" charset="utf-8" />
+
 	
 <section id="pricing">
 	<div id="blog" class="container">
@@ -109,6 +116,8 @@
 							</tr>
 
 							<tr>
+							
+							<!-- textarea 화면에 콘텐츠 내용 표시 -->
 								<th height="300px">
 					
 									${boardVO.reviewcon }
@@ -116,36 +125,25 @@
 								</th>
 							</tr>
 							<tr>
-								<%-- <th id="downFile"><c:forEach items="${files}" var="files"
-										varStatus="idx">
-										<h6 align="left" style="padding-right: 50px;" id="addedFile">
-
-											<i class="glyphicon glyphicon-save"></i> 첨부파일${idx.count} : <a
-												href="/up/filedown?fileName=${files.fname}">
-												${files.fname}</a>
-										</h6>
-									</c:forEach></th> --%>
 							</tr>
-		
-							
-
 						</tbody>
 						
 
 					</table>
+					<!-- 로그인 처리시 이 부분을 수정 해야 합니다. -->
 										<div class="pull-right" style="padding-top: 15px">
-					<c:if test="${login.role eq 'owner'}">
-						<c:if test="${login.mid eq pdsData.pwriter}">
-						<a id="modBtn" href="#" class="btn btn-send" style="margin-top: 0px;">수정</a>
-					  <a id="delBtn" href="#" class="btn btn-send"	style="margin-top: 0px;">삭제</a>
-					</c:if> 
-  					</c:if>
+					<%-- <c:if test="${login.role eq 'owner'}">
+						<c:if test="${login.mid eq pdsData.pwriter}"> --%>
+						<a id="modBtn" href="#" class="btn btn-primary btn-send" style="margin-top: 0px;">수정</a>
+					  <a id="delBtn" href="#" class="btn btn-primary btn-send"	style="margin-top: 0px;">삭제</a>
+				<%-- 	</c:if> 
+  					</c:if> --%>
 					<c:if test="${login.role eq 'admin'}">
-					<a id="modBtn" href="#" class="btn btn-send" style="margin-top: 0px;">수정</a> 
-					<a id="delBtn" href="#" class="btn btn-send" style="margin-top: 0px;">삭제</a> 
+					<a id="modBtn" href="#" class="btn btn-primarybtn btn-send" style="margin-top: 0px;">수정</a> 
+					<a id="delBtn" href="#" class="btn btn-primarybtn btn-send" style="margin-top: 0px;">삭제</a> 
 					</c:if> 
 					
-							<a id="listBtn" href="#"class="btn btn-send" style="margin-top: 0px;">목록</a>
+							<a id="listBtn" href="#"class="btn btn-primary btn-send" style="margin-top: 0px;">목록</a>
 						
 					</div>
 
@@ -156,7 +154,7 @@
 		</div>
 	</div>
 	<!-- Modal -->
-	<div style="top: 30%" class="modal fade" id="myModal" tabindex="-1"
+	<div style="top: 10%" class="modal fade" id="myModal" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -165,7 +163,7 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h5 class="modal-title" id="exampleModalLabel">자료 삭제</h5>
+					
 				</div>
 				<div class="modal-body">
 					<h4 style="text-align: center;">정말 삭제하시겠습니까?</h4>
@@ -184,7 +182,7 @@
 		</div>
 	</div>
 	<!-- Modal끝 -->
-	<form action="/delete" method="POST" id="modalForm">
+	<form id="modalForm">
 		<input type="hidden" name="bno" value="${boardVO.bno}" /> 
 		<input type="hidden" name="type" value="${cri.type}" /> 
 		<input type="hidden" name="keyword" value="${cri.keyword}" /> 
@@ -221,6 +219,12 @@
 		<input type="hidden" name="perPageNum" value="${cri.perPageNum}" /> 
 	</form>
 	
+	<form method="get" id="replyVO">
+	
+	<input type="hidden" name="rno" value="${replyVO.rno }"/>
+	
+	</form>
+	
 	<div class="container" id="reply">
 	<div class="row col-md-12 st-pricing">
 	
@@ -238,7 +242,7 @@
 	<!-- 댓글 달면 이쪽에 추가 해서 li로 쭉 뺴기 -->
 		<ul class="timeline">
 	<li class="time-label" id="repliesDiv"><span class="bg-green">
-	Replies List
+	Replies List[ ${boardVO.replycnt} ]
 	</span>
 	</li>
 	</ul>
@@ -266,37 +270,53 @@
 						<input class="form-control" type="hidden" id="newCommentWriter" value="" readonly="readonly">
 						<div class="col-sm-11 col-xs-8 commentArea">
 							<textarea class="form-control" id="newCommentText" maxlength="300" placeholder="댓글 작성을 위해 로그인 해 주세요." style="height: 17em;"></textarea>
-							<span id="commentCounter">0/300</span>
+							
 						</div>
 						<div class="col-sm-1 col-xs-4">
 							<button type="submit" class="btn btn-primary btn-block btn-sm" id="commentAddBtn">등록</button>
+							
 						</div>
 					</div>
 				</div>
 				</div>
 					
 			</div>
+			<!-- modall -->
+			<div id="modifyModal" class="modal modal-primary fade"  role="dialog">
+			<div class="modal-content" style="z-index: 9998;">
+			<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times</button>
+			<h4 class="modal-title"></h4>
+			</div>
+			<div class="modal-body" data-rno>
+			<p><input type="text" id="replytext" class="form-control"></p>
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
+			<button type="button" class="btn btn-danger" id="replyDelBtn">Delete</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+			</div>
+			</div>
 	
 	<!--  -->
 
 </section>
-
+	<%@include file="include/footer.jsp" %>
 <script id="template" type="text/x-handlebars-template">
 
 {{#each .}}
 
 
-	<li class="replyLi">
+	<li class="replyLi" data-rno={{rno}}>
 		<div class="timeline-item">
 			<span class="time">
 				<i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
 			</span>
-			<h3 class="timeline-header"><!--<strong>{{uname}}</strong> -->구경온손님</h3>
+			<h3 class="timeline-header"><!--<strong>{{rno}}</strong> -->구경온손님</h3>
 			<div class="timeline-body">{{replytext}}</div>
 			<div class="timeline-footer">
 			<a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modifyModal">수정</a>
-			<a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modifyModal">삭제</a>
-			<a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modifyModal">답변</a>
 			</div>
 		</div>
 		</li>
@@ -330,6 +350,14 @@ var printData = function(replyArr, target, templateObject){
 
 <script>
 
+$(".timeline").on("click", ".replyLi", function(event){
+    
+    var reply = $(this);
+    
+    $("#replytext").val(reply.find('.timeline-body').text());
+    $(".modal-title").html(reply.attr("data-rno"));
+    
+});
 
 	$(document).ready(function() {
 		//로그인안했을시 첨부파일 다운막기
@@ -362,7 +390,74 @@ var printData = function(replyArr, target, templateObject){
 		var bno = ${boardVO.bno}
 		var replyPage=1;
 		
+		$("#replyModBtn").on("click", function(){
+			
+			
+			
+			var rno = $(".modal-title").html();
+			
+			alert(rno);
+			
+			var replytext = $("#replytext").val();
+			
+			$.ajax({
+				
+				type:"put",
+				url:"/replies/"+rno,
+				headers:{
+					"Content-Type":"application/json",
+					"X-HTTP-Method-Override":"PUT"
+				},
+				data:JSON.stringify({replytext:replytext}),
+				dataType:"text",
+				sucess:function(result){
+					if(result=="SUCCESS"){
+						alert("수정 되었습니다.");
+						getAllList("/replies/" + bno + "/" + replyPage);
+						
+					}
+					
+					
+				}
+				
+			})
+			
+		});
 		
+		
+	$("#replyDelBtn").on("click", function(){
+			
+			
+			
+			var rno = $(".modal-title").html();
+			
+			alert(rno);
+			
+			var replytext = $("#replytext").val();
+			
+			$.ajax({
+				
+				type:"delete",
+				url:"/replies/"+rno,
+				headers:{
+					"Content-Type":"application/json",
+					"X-HTTP-Method-Override":"DELETE"
+				},
+				data:JSON.stringify({replytext:replytext}),
+				dataType:"text",
+				sucess:function(result){
+					if(result=="SUCCESS"){
+						alert("삭제 되었습니다..");
+						getAllList("/replies/" + bno + "/" + replyPage);
+						
+					}
+					
+					
+				}
+				
+			})
+			
+		});
 		
 		$("#repliesDiv").on("click", function(){
  			if($(".timeline li").length > 1){
@@ -383,6 +478,8 @@ var printData = function(replyArr, target, templateObject){
 			
 			getAllList("/replies/" + bno + "/" + replyPage);
 		})
+		
+		
 		
 		function getAllList(pageInfo){
 			$.getJSON(pageInfo, function(data){
@@ -433,7 +530,9 @@ var printData = function(replyArr, target, templateObject){
 		//삭제버튼 클릭 이벤트
 		$('#delBtn').on('click', function(e) {
 			e.preventDefault();
-			$('#myModal').modal();
+			$('#modalForm').attr("method", "POST").attr('action', '/delete').submit();
+			//$('#modalForm')
+			
 		});
 		//myModal 내 '예' 버튼 클릭 이벤트
 		$('#yesBtn').on('click', function(e) {
@@ -473,6 +572,8 @@ var printData = function(replyArr, target, templateObject){
 			});
 			
 		});
+		
+		
 
 	});
 </script>

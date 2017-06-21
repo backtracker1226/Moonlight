@@ -16,6 +16,8 @@ public interface ReplyReviewBoardService {
 	public void deleteReply(Integer rno)throws Exception;
 	
 	public int count(Integer bno)throws Exception;
+	
+	public void replyalldel(Integer bno)throws Exception;
 		
 	
 }

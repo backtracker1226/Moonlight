@@ -9,7 +9,9 @@ import javax.inject.Inject;
 import org.moon.domain.Criteria;
 import org.moon.domain.ReviewBoardReplyVO;
 import org.moon.persistence.ReplyReviewBoardDAO;
+import org.moon.persistence.ReviewBoardDAO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ReplyReviewBoardServiceImp implements ReplyReviewBoardService {
@@ -17,10 +19,15 @@ public class ReplyReviewBoardServiceImp implements ReplyReviewBoardService {
 	@Inject
 	private ReplyReviewBoardDAO dao;
 	
+	@Inject
+	private ReviewBoardDAO boardDAO;
+	
+	@Transactional
 	@Override
 	public void addReply(ReviewBoardReplyVO reply) throws Exception {
 		// TODO Auto-generated method stub
 		dao.create(reply);
+		boardDAO.updateReplyCnt(reply.getBno(), 1);
 		
 	}
 
@@ -38,10 +45,13 @@ public class ReplyReviewBoardServiceImp implements ReplyReviewBoardService {
 
 	}
 
+	@Transactional
 	@Override
 	public void deleteReply(Integer rno) throws Exception {
 		// TODO Auto-generated method stub
+		int bno=dao.getBno(rno);
 		dao.delete(rno);
+		boardDAO.updateReplyCnt(bno, -1);
 
 	}
 
@@ -49,6 +59,13 @@ public class ReplyReviewBoardServiceImp implements ReplyReviewBoardService {
 	public int count(Integer bno) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.cout(bno);
+	}
+
+	@Override
+	public void replyalldel(Integer bno) throws Exception {
+		// TODO Auto-generated method stub
+		dao.replyalldel(bno);
+		
 	}
 
 }

@@ -59,4 +59,17 @@ public class ReplyReviewBoardDATOImpl implements ReplyReviewBoardDAO {
 		return sess.selectOne(namespace + ".count", bno);
 	}
 
+	@Override
+	public void replyalldel(Integer bno) throws Exception {
+		// TODO Auto-generated method stub
+		sess.delete(namespace + ".replydel", bno);
+		
+	}
+
+	@Override
+	public int getBno(Integer rno) throws Exception {
+		// TODO Auto-generated method stub
+		return sess.selectOne(namespace + ".getBno", rno);
+	}
+
 }

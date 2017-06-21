@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.moon.domain.BoardVO;
 import org.moon.domain.Criteria;
 import org.moon.domain.PageMaker;
+import org.moon.domain.ReviewBoardReplyVO;
+import org.moon.service.ReplyReviewBoardService;
 import org.moon.service.ReviewBoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +45,10 @@ public class BoardController {
 	@Inject
 	private ReviewBoardService service;
 	
+	@Inject
+	private ReplyReviewBoardService reService;
+
+	
 	//파일 업로드
 	@GetMapping("/image")
 	public void image() {
@@ -56,9 +62,14 @@ public class BoardController {
 
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
-	public void registerGet(BoardVO board, Model model)throws Exception{
+	public void registerGet(BoardVO board, Model model, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr)throws Exception{
 		
 		logger.info("register get !!");
+		
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 	}
 
 	@RequestMapping(value = "/register", method=RequestMethod.POST)
@@ -91,25 +102,28 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value ="/view", method=RequestMethod.GET)
-	public void read(@RequestParam("bno") int bno, Model model, @ModelAttribute("cri")Criteria cri)throws Exception{
+	public void read(@RequestParam("bno") int bno,Model model, @ModelAttribute("cri")Criteria cri)throws Exception{
 		BoardVO board = new BoardVO();
 
 		int totalSize = service.getCount(cri);
 
 		PageMaker pager = new PageMaker(cri, totalSize);
-
+		
 		board = service.read(bno);		
 
 		model.addAttribute("boardVO", board);
 		model.addAttribute("pager", pager);
-		
+
 		
 	}
 	@PostMapping("/delete")
 	public String delete(@RequestParam("bno") Integer bno, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) throws Exception {
 
-		service.remove(bno);
 		
+		reService.replyalldel(bno);
+		
+		service.remove(bno);
+
 
 		
 		rttr.addAttribute("page", cri.getPage());
@@ -121,26 +135,32 @@ public class BoardController {
 	}
 	
 	@GetMapping("/modify")
-	public void modify(@ModelAttribute("cri") Criteria cri, Integer pno, Model model) throws Exception {
+	public void modify(@ModelAttribute("cri") Criteria cri, Integer bno, Model model, RedirectAttributes rttr) throws Exception {
 /*		model.addAttribute("boardVO", service.(pno));
 		List<String> list = new ArrayList<>();
 		service.findfileByPno(pno).forEach(fvo -> {
 			list.add(fvo.getFname());
 		});
 		model.addAttribute("files", list);*/
+
+		model.addAttribute(service.read(bno));
+		
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 	}
 
 	@PostMapping("/modify")
-	public String modifyPost(BoardVO board, String files, RedirectAttributes reAttr) {
+	public String modifyPost(BoardVO board, String files, RedirectAttributes reAttr, @RequestParam("bno") Integer bno) throws Exception {
 
-/*		try {
-			log.info("modifyPost....and: " + vo.getPno());
-			service.modify(vo, files.split(","));
-			reAttr.addFlashAttribute("msg", "modS");
-		} catch (Exception e) {
-			reAttr.addFlashAttribute("msg", "modF");
-		}
-		reAttr.addAttribute("pno", vo.getPno());*/
+		logger.info("확인");
+
+		
+	
+		
+		service.modify(board);
+		
 		return "redirect:/board";
 	}
 	

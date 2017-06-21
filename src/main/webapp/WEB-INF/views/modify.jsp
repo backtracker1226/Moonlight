@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+	<%@ include file="include/header.jsp" %>
 <style>
 #miniNav, #miniNav a {
 	color: #BDBDBD;
@@ -17,7 +17,7 @@ input[type="file"] {
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 <!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">  -->
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
@@ -27,36 +27,26 @@ input[type="file"] {
 <section id="pricing">
 	<div id="blog" class="container">
 		<div class="row col-md-12 st-pricing">
-			<div class="col-md-12" style="height: 50px">
-				<div class="section-title">
-					<h6 class="pull-right" id="miniNav">
-						<a href="/"><i class="glyphicon glyphicon-home"></i>home /</a><a
-							href="/pds/list">pds</a> / <a href="/pds/data/list">data</a> /
-						modify
-					</h6>
-					<h1>data modify</h1>
-					<span class="st-border"></span>
-				</div>
-			</div>
+		
 
 			<div class="col-sm-12">
 				<div class="st-pricing" style="box-shadow: 0px 0px 18px #ddd;">
 					<div class="st-border"></div>
 					<!-- <form method="post" id="regForm"> -->
-					<form name="regForm" id="regForm" action="/pds/data/modify"
+					<form name="regForm" id="regForm"
 						method="post" accept-charset="utf-8">
 						<div class="form-group">
-							<i class="glyphicon glyphicon-menu-down" style="color: red"></i>
+							
 							<label>작성자</label> <input type="text" class="form-control"
 								name="uname" value="${boardVO.uname}" readonly="readonly" style="background-color: #F6F6F6;">
 						</div>
 						<div class="form-group">
-							<i class="glyphicon glyphicon-menu-down" style="color: red"></i>
+							
 							<label>제목</label> <input type="text" class="form-control"
 								name="title" value="${boardVO.title}">
 						</div>
 						<div class="form-group">
-							<i class="glyphicon glyphicon-menu-down" style="color: red"></i>
+							
 							<label>내용</label>
 							<!-- <div id="editorDiv"></div> -->
 							<%-- <jsp:include page="/WEB-INF/views/pds/data/editor_template.jsp"></jsp:include> --%>
@@ -82,7 +72,7 @@ input[type="file"] {
 	<!-- Modal -->
 	<div style="top: 30%" class="modal fade" id="myModal" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog" role="document" style="z-index: 9999;">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close pull-right" data-dismiss="modal"
@@ -112,11 +102,11 @@ input[type="file"] {
 
 	<!-- 파라미터 전송을위한 HiddenForm  -->
 	<form method="get" id="hiddenForm">
-		<input type="hidden" name="keyword" value="${cri.keyword}"> <input
-			type="hidden" name="type" value="${cri.type}"> <input
-			type="hidden" name="size" value="${cri.size}"> <input
-			type="hidden" name="page" value="${cri.page}"> <input
-			type="hidden" name="pno" value="${pdsData.pno}">
+		<input type="hidden" name="bno" value="${boardVO.bno}" /> 
+		<input type="hidden" name="type" value="${cri.type}" /> 
+		<input type="hidden" name="keyword" value="${cri.keyword}" /> 
+		<input type="hidden" name="page" value="${cri.page}" /> 
+		<input type="hidden" name="perPageNum" value="${cri.perPageNum}" />  
 	</form>
 </section>
 
@@ -190,7 +180,7 @@ input[type="file"] {
 
 	});
 	
-	var content = '${pdsData.pcontent}';
+	var content = '${boardVO.reviewcon}';
 	var attachments = {};
 	attachments['file'] = [];
 
@@ -259,7 +249,7 @@ input[type="file"] {
 		var content = editor.getContent();
 		// 본문 내용을 필드를 생성하여 값을 할당하는 부분
 		var textarea = document.createElement('textarea');
-		textarea.name = 'pcontent';//name값 수정
+		textarea.name = 'reviewcon';//name값 수정
 		textarea.value = content;
 		form.createField(textarea);
 		return true;
@@ -327,7 +317,7 @@ input[type="file"] {
 		//취소버튼 click 이벤트
 		$('#cancelBtn').on('click', function(e) {
 			e.preventDefault();
-			$('#hiddenForm').attr('action', '/pds/data/view').submit();
+			$('#hiddenForm').attr('action', '/board').submit();
 		});
 		
 		
@@ -339,13 +329,6 @@ input[type="file"] {
 		var name = null;
 		var fullId= null;
 		
-	/* 	$('#tx_canvas_wysiwyg').contents().on('mouseleave','img',function(e){
-			e.preventDefault();
-			e.stopPropagation();
-			$(this).css('opacity','1');
-			return;
-	
-		});  */
 		$('#tx_canvas_wysiwyg').contents().on('click', 'img',	function(e) {
 					e.preventDefault();
 					e.stopPropagation();

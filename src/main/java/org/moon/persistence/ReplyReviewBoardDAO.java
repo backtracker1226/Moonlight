@@ -17,5 +17,9 @@ public interface ReplyReviewBoardDAO {
 	
 	public int cout(Integer bno)throws Exception;
 	
+	public void replyalldel(Integer bno)throws Exception;
+	
+	public int getBno(Integer rno)throws Exception;
+	
 
 }

@@ -23,5 +23,4 @@ public interface ReviewBoardService {
 	public Integer getCount(Criteria cri)throws Exception;
 	
 
-
 }

@@ -1,6 +1,8 @@
 package org.moon.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -61,5 +63,26 @@ public class ReviewBoardDAOImpl implements ReviewBoardDAO {
 		// TODO Auto-generated method stub
 		return ses.selectList(namespace + ".list2");
 	}
+
+	@Override
+	public void viewUpdate(Integer bno) throws Exception {
+		// TODO Auto-generated method stub
+		ses.update(namespace + ".veiwupdate", bno);
+	}
+
+	@Override
+	public void updateReplyCnt(Integer bno, int amout) throws Exception {
+		// TODO Auto-generated method stub
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("bno", bno);
+		paramMap.put("amout", amout);
+		
+		ses.update(namespace + ".updateReplyCnt", paramMap);
+		
+	}
+
+
+
 
 }

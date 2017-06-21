@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+	<%@ include file="include/header.jsp" %>
 <style>
 #miniNav, #miniNav a {
 	color: #BDBDBD;
@@ -18,7 +18,7 @@ input[type="file"] {
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 <!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
@@ -41,20 +41,17 @@ input[type="file"] {
 					<form name="regForm" id="regForm" action="/register"
 						method="post" accept-charset="utf-8">
 						<div class="form-group">
-							<i class="glyphicon glyphicon-menu-down" style="color: red"></i>
+							<!-- 로그인 처리시 이 부분을 수정 해야 합니다. -->
 							<label>작성자</label> <input type="text" class="form-control"
 								placeholder="writer" name="uname" value="쏘야" readonly="readonly" style="background-color: #F6F6F6;">
 						</div>
 						<div class="form-group">
-							<i class="glyphicon glyphicon-menu-down" style="color: red"></i>
 							<label>제목</label> <input type="text" class="form-control"
 								placeholder="title" name="title">
 						</div>
 						<div class="form-group">
-							<i class="glyphicon glyphicon-menu-down" style="color: red"></i>
+							
 							<label>내용</label>
-							<!-- <div id="editorDiv"></div> -->
-							<%-- <jsp:include page="/WEB-INF/views/pds/data/editor_template.jsp"></jsp:include> --%>
 							<%@include file="editor_template.jsp"%>
 							<input type="hidden" id="fileNames" name="files">
 
@@ -67,8 +64,8 @@ input[type="file"] {
 					</form>
 
 
-					<a class="btn btn-send" id="regBtn">등록</a> <a id="cancelBtn"
-						class="btn btn-send">취소</a>
+					<a class="btn btn-primary" id="regBtn">등록</a> 
+					<a class="btn btn-primary" id="cancelBtn">취소</a>
 
 
 				</div>
@@ -77,8 +74,8 @@ input[type="file"] {
 	</div>
 	<!-- Modal -->
 	<div style="top: 30%" class="modal fade" id="myModal" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+		<div class="modal-dialog" role="document"  style="z-index: 9998;">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close pull-right" data-dismiss="modal"
@@ -97,7 +94,7 @@ input[type="file"] {
 
 					<button type="button" class="btn btn-primary" id="yesBtn">예</button>
 					
-					<button type="button" class="btn btn-secondary"
+					<button type="button" class="btn btn-primary"
 						data-dismiss="modal">아니요</button>
 				</div>
 			</div>
@@ -229,8 +226,7 @@ input[type="file"] {
 					return;
 				}
 				//등록버튼 click event.
-				$('#regBtn').on('click', function(e) {
-					alert('내용을 입력하세요');
+				$('#regBtn').on('click', function(e) {			
 					e.preventDefault();
 					$('#myModal').modal();
 				});
@@ -257,7 +253,7 @@ input[type="file"] {
 				//취소버튼 click 이벤트
 				$('#cancelBtn').on('click', function(e) {
 					e.preventDefault();
-					$('#hiddenForm').attr('action', '/pds/data/list').submit();
+					$('#hiddenForm').attr('action', '/board').submit();
 				});
 
 				//삭제 아이콘 클릭 이벤트
@@ -302,14 +298,7 @@ input[type="file"] {
 						//iframe 내부 img 클릭 이벤트(이미지 파일크기조절)--
 						var dragable=false;
 						var fullId= null;
-						
-						/* $('#tx_canvas_wysiwyg').contents().on('mouseleave','img',function(e){
-							e.preventDefault();
-							e.stopPropagation();
-							$(this).css('opacity','1');
-							return;
-					
-						});  */
+
 						$('#tx_canvas_wysiwyg').contents().on('click', 'img',	function(e) {
 									e.preventDefault();
 									e.stopPropagation();

@@ -8,6 +8,8 @@ import org.moon.domain.BoardVO;
 import org.moon.domain.Criteria;
 import org.moon.persistence.ReviewBoardDAOImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -22,10 +24,13 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 		dao.create(board);
 
 	}
-
+	
+	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
 	public BoardVO read(Integer bno) throws Exception {
 		// TODO Auto-generated method stub
+		dao.viewUpdate(bno);
+		
 		return dao.read(bno);
 	}
 
@@ -61,5 +66,9 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 		// TODO Auto-generated method stub
 		return dao.getCount(cri);
 	}
+
+
+
+	
 
 }
