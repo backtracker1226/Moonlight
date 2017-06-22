@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="../include/header.jsp" %>
+
 <style>
     	.row{
 		    margin-top:40px;
@@ -23,10 +24,29 @@
 		.panel-body{
 			display: none;
 		}
+		.parallax-effect .color-overlay {
+			background-color: rgba(0, 0, 0, 0.3);
+}
 
 </style>
 
+<section class="parallax-effect" tabindex="5000" style="overflow: hidden; outline: none;">
+  <div id="parallax-pagetitle" style="background-image: url(&quot;../resources/images/parallax/backimg1.png&quot;); background-position: 50% -68px;">
+    <div class="color-overlay"> 
+      <!-- Page title -->
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <h1>RoofTop</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<div class="box">
+<div class="container" >
 <div class="col-md-12 mt50" style="float: none;">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
@@ -95,7 +115,9 @@
 	<button type="button" id="searchBtn">Search</button>
 	
 </div>
-			</div>
+</div>
+</div>
+</div>
 			
 <script>
 

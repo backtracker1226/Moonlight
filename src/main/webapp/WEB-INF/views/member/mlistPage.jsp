@@ -8,14 +8,39 @@
 
 <html>
 
-<!-- include 파일 -->
 
+
+<!-- include 파일 -->
 <%@include file="../include/header.jsp"%>
-<%@include file="../include/banner.jsp"%>
+<!-- Theme style -->
+<link rel="stylesheet" href="\resources\adminLte\css\AdminLTE.css">
+
+<style>
+
+.parallax-effect .color-overlay {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+</style>
+
+<section class="parallax-effect" tabindex="5000" style="overflow: hidden; outline: none;">
+  <div id="parallax-pagetitle" style="background-image: url(&quot;../resources/images/parallax/backimg1.png&quot;); background-position: 50% -68px;">
+    <div class="color-overlay"> 
+      <!-- Page title -->
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <h1>Members</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- 회원 목록 테이블 -->
-<button type="submit" id="logoutBtn" class="btn  btn-lg btn-primary" style="float:right;">LogOut</button>	
+<!-- <button type="submit" id="logoutBtn" class="btn  btn-lg btn-primary" style="float:right;">LogOut</button>	 -->
 
+<div class="box">
 <div class="container" style="text-align:center;">
 <div class="col-sm-8 mt50" style="display:inline-block; width:100%;">
 <h2 class="lined-heading"><span>Member List</span></h2>
@@ -118,7 +143,8 @@
       </ul>
 </div>
 </div>
-</div>      
+</div>
+</div>
       
 <!-- 스크립트 부분 -->
 

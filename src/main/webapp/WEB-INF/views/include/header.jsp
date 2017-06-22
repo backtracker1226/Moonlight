@@ -77,10 +77,8 @@
 
 
 </head>
-<body style="background-color: #f6f6f6">
 
-
-
+<body>
 <div id="sticky-sticky-wrapper" class="sticky-wrapper" style="height: auto;">
 <div class="navbar yamm navbar-default" id="sticky" style="background-color: #75c5cf;">
 
