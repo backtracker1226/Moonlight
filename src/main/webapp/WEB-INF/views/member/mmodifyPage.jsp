@@ -24,7 +24,7 @@
     <section id="contact-form" class="mt50">
     <!-- 사용자 프로필 사진 등록 -->
     <form class="clearfix mt50" role="form" method="post" id="profileform">
-        <div class="col-md-8">
+        <div class="col-md-12">
         <h2 class="lined-heading"><span>Profile Photo</span></h2>
         <div class="ProfilePhoto"></div>
                 
@@ -37,7 +37,7 @@
         </div>
 
         
-      <div class="col-md-8">
+      <div class="col-md-12">
         <h2 class="lined-heading"><span>Member Information</span></h2>
           <div class="row">
           <!-- 세로 1째줄 -->
