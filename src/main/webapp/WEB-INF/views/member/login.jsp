@@ -10,7 +10,7 @@
 
 <%@include file="../include/header.jsp"%>
 
-<body>
+<body style="background-image: url(&quot;../resources/images/parallax/loginback.jpg&quot;); background-size: cover;">
 
 <style>
 

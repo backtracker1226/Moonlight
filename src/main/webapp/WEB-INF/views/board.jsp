@@ -14,6 +14,10 @@
 .parallax-effect .color-overlay {
 	background-color: rgba(0, 0, 0, 0.3);
 }
+.row{
+	margin-top:40px;
+	padding: 0 10px;
+}
 </style>
 
 <section class="parallax-effect" tabindex="5000" style="overflow: hidden; outline: none;">
@@ -38,16 +42,16 @@
 <link rel="shortcut icon" href="favicon.ico">
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 
 <!-- 부가적인 테마 -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 
 
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 <!-- Theme style -->
-<link rel="stylesheet" href="\resources\adminLte\css\AdminLTE.css">
+<!-- <link rel="stylesheet" href="\resources\adminLte\css\AdminLTE.css"> -->
 
 
 
@@ -58,18 +62,12 @@
 <!-- 	<div class="col-md-12"> -->
 		<div class="box">
 		<div class="container" >
-			<div class="box-header">
-				<h3 class="box-title">후기 게시판</h3>
-
-			</div>
-
+<div class="col-md-12 mt50" style="display:inline-block; width:100%;">
 			<!-- 게시판 영역  -->
 			<!-- /.box-header -->
 			<div class="box-body"
 				style="text-align: center;">
-				<table class="table table-bordered table-striped dataTable table-responsive"
-					style="background-color: hsla(208, 56%, 53%, 0.18);"
-					style="text-align: center;">
+				<table class="table table-striped">
 
 					<tbody>
 						<tr role="row" >
@@ -83,7 +81,7 @@
 						<c:forEach items="${list}" var="boardVO">
 						<tr role="row" class="odd">
 							<td>${boardVO.bno}</td>
-							<td style="text-align: left;"><a href='/view${pager.makeSearch(pager.cri.page)}&bno=${boardVO.bno}'>${boardVO.title}<strong> [ ${boardVO.replycnt} ] </strong></a></td>
+							<td style="text-align: center;"><a href='/view${pager.makeSearch(pager.cri.page)}&bno=${boardVO.bno}'>${boardVO.title}<strong> [ ${boardVO.replycnt} ] </strong></a></td>
 							<%-- /view${pager.makeSearch(pager.cri.page)}&bno=${board.bno} --%>
 							<td style="text-align: center;">${boardVO.uname}</td>
 							<td>${boardVO.regdate}</td>
@@ -103,13 +101,12 @@
 
 						<div class="dataTables_paginate paging_simple_numbers"
 							id="example1_paginate">
-							<ul class="pagination">
+							<ul class="pagination pagination-lg clearfix">
 							<c:if test="${pager.prev == true}">
                                 <li class="paginate_button previous" "><a
                                     href="${(pager.start - 1)}"
                                     aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li>
                             </c:if>
-
 
                             <c:forEach var="pages" begin="${pager.start}" end="${pager.end}">
 
@@ -130,6 +127,7 @@
 							</ul>
 						</div>
 						<!-- 검색 및 새글 쓰기 디자인 조정 필요 합니다. -->
+						
 						<div class="col-xs-6 col-sm-12">
 						<select name="type">
 						<option value='x' <c:out value = "${cri.type eq 'x' ? 'selected':''}"/>>----</option>
@@ -143,13 +141,15 @@
 						<input type="text" name="keyword" id="keywordInput" value="${pager.cri.keyword}">
 
 						<button id='searchBtn' class="btn btn-primary btn-xs">Search</button>
+						<button type="submit" style="float: right;" class="btn btn-lg btn-primary">새글쓰기</button>
 						</div>
-						<button type="submit" style="float: right;" class="btn btn-primary writeBtn">새글쓰기</button>
+						
 					</div>
 				</div>
 
 			</div>
 			<!-- /.box-body -->
+		</div>
 		</div>
 		<!-- /.box -->
 <!-- 	</div> -->

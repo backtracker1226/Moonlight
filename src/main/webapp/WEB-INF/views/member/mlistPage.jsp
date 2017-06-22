@@ -6,19 +6,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<html>
-
-
 
 <!-- include 파일 -->
 <%@include file="../include/header.jsp"%>
-<!-- Theme style -->
-<link rel="stylesheet" href="\resources\adminLte\css\AdminLTE.css">
 
 <style>
 
 .parallax-effect .color-overlay {
 	background-color: rgba(0, 0, 0, 0.3);
+}
+.row{
+	margin-top:40px;
+	padding: 0 10px;
 }
 </style>
 
@@ -42,9 +41,8 @@
 
 <div class="box">
 <div class="container" style="text-align:center;">
-<div class="col-sm-8 mt50" style="display:inline-block; width:100%;">
-<h2 class="lined-heading"><span>Member List</span></h2>
-<table class="table table-striped mt30">
+<div class="col-md-12 mt50" style="display:inline-block; width:100%;">
+<table class="table table-striped">
         <tbody>
         <tr>
         <th>번호</th>
@@ -82,11 +80,36 @@
         
 </table>
 
+<!-- 페이징 처리 숫자 부분 -->
 
+<div class="text-center mt50">
+      <ul class="pagination pagination-lg clearfix">
+      
+        <c:if test="${pageMaker.prev}">
+        	<li>
+        		<a href="mlistPage${pageMaker.makeSearch(pageMaker.startPage - 1)}">«</a>
+        	</li>
+        </c:if>
+        
+        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+        	<li
+        		<c:out value="${pageMaker.cri.page == idx ? 'class=active' : '' }"/>>
+        		<a href="mlistPage${pageMaker.makeSearch(idx)}">${idx}</a>
+        	</li>
+        </c:forEach>
+        
+        <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+        	<li>
+        		<a href="mlistPage${pageMaker.makeSearch(pageMaker.endPage + 1)}">»</a>
+        	</li>
+        </c:if>
+        
+      </ul>
+</div>
 
 <!-- 검색창 -->
-
-<div class="box-body">
+<button type="submit" id="newBtn" class="btn btn-lg btn-primary" style="float:right;">새글쓰기</button>	
+<div class="box-body" style="text-align: center;">
       
 	<select name="searchType">
     	<option value="x"
@@ -110,38 +133,12 @@
 	</select>
 	
 	<input type="text" name="keyword" id="keywordInput" value="${cri.keyword}">
-	<button type="button" id="searchBtn">Search</button>
+	<button type="button" id="searchBtn" class="btn btn-primary btn-xs">Search</button>
+	
+	
 	
 </div>
 
-<button type="submit" id="newBtn" class="btn  btn-lg btn-primary" style="float:right;">New</button>	
-
-<!-- 페이징 처리 숫자 부분 -->
-
-<div class="text-center mt50">
-      <ul class="pagination clearfix">
-      
-        <c:if test="${pageMaker.prev}">
-        	<li>
-        		<a href="mlistPage${pageMaker.makeSearch(pageMaker.startPage - 1)}">«</a>
-        	</li>
-        </c:if>
-        
-        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-        	<li
-        		<c:out value="${pageMaker.cri.page == idx ? 'class=active' : '' }"/>>
-        		<a href="mlistPage${pageMaker.makeSearch(idx)}">${idx}</a>
-        	</li>
-        </c:forEach>
-        
-        <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-        	<li>
-        		<a href="mlistPage${pageMaker.makeSearch(pageMaker.endPage + 1)}">»</a>
-        	</li>
-        </c:if>
-        
-      </ul>
-</div>
 </div>
 </div>
 </div>
