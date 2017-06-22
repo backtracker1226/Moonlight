@@ -157,7 +157,7 @@
           <div class="form-group" >
           
             <label for="rthashtag" ><h3><span class="required">*</span> 옥상 태그 </h3></label>
-            <label><span class="required">(최대 5개까지 입력가능)</span></label>
+            <!-- <label><span class="required">(최대 5개까지 입력가능)</span></label> -->
             <input name="rthashtag" type="text" maxlength="10" id="rthashtag" value="" 
             class="form-control"/>
             <div style="float: right;">
@@ -312,7 +312,7 @@
 			<input type="hidden" name="keyword" value="${cri.keyword}">
          
           <button id="updateBtn" type="submit" class="btn  btn-lg btn-primary" style="float: right; ">수정하기</button>
-          <button type="submit" id="cancleBtn" class="btn  btn-lg btn-primary" style="float:left">취소</button>
+          <button type="submit" id="cancleBtn" class="btn  btn-lg btn-danger" style="float:left">취소</button>
          
         </form>
       </div>

@@ -156,7 +156,7 @@
           <div class="form-group" >
           
             <label for="rthashtag" ><h3><span class="required">*</span> 옥상 태그 </h3></label>
-            <label><span class="required">(최대 5개까지 입력가능)</span></label>
+            <!-- <label><span class="required">(최대 5개까지 입력가능)</span></label> -->
             <!-- <input name="rthashtag" type="text" maxlength="10" id="rthashtag" value="" 
             class="form-control"/> -->
             <!-- <div style="float: right;">
@@ -181,7 +181,7 @@
           
           <div class="form-group">
             <label><h3><span class="required">*</span>이미지</h3></label>		
-            <label><span class="required">(최대 10장까지)</span></label>  
+            <!-- <label><span class="required">(최대 10장까지)</span></label> -->  
             <div id="div1" class="form-control" style="display: block; height: 300px;">
             <ul class="mailbox-attachments clearfix uploadedList">
             </ul>
@@ -309,9 +309,9 @@
 					
 				</div>
 		
-          <button type="submit" id="listBtn" class="btn  btn-lg btn-primary" style="float:left;">List</button>
-          <button type="submit" id="modifyBtn" class="btn  btn-lg btn-primary" style="float:right;">Modify</button>
-          <button type="submit" id="removeBtn" class="btn  btn-lg btn-primary" style="float:right;">Remove</button>
+          <button type="submit" id="listBtn" class="btn  btn-lg btn-primary" style="float:left; ">목록</button>
+          <button type="submit" id="modifyBtn" class="btn  btn-lg btn-primary" style="float:right;">수정</button>
+          <button type="submit" id="removeBtn" class="btn  btn-lg btn-danger" style="float:right;margin-right: 5px;">삭제</button>
           <!-- <button id="registerForm" type="submit" class="btn  btn-lg btn-primary" style="float: right; ">옥상 등록하기</button> -->
         </div>
       </div>

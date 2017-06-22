@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -48,7 +49,7 @@
 <div class="box">
 <div class="container" >
 <div class="col-md-12 mt50" style="float: none;">
-				<div class="panel panel-primary">
+				<%-- <div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">옥상 목록</h3>
 					</div>
@@ -77,7 +78,50 @@
 						</c:forEach>						
 						</tbody>
 					</table>
-				</div>
+				</div> --%>
+				<table class="table table-striped mt30" style="text-align: center;">
+        <tbody>
+        <tr>
+        <th>번호</th>
+        <th>옥상명</th>
+        <th>주소</th>
+        <th>등록 시간</th>
+        <th>업데이트 시간</th>
+        </tr>
+        
+        <c:forEach items="${list}" var="list">
+							<tr>
+								<td>${list.rtid}</td>
+								<td><a href="/rooftop/read${pageMaker.makeSearch(pageMaker.cri.page)}&rtid=${list.rtid}">${list.rtname}</td>
+								<td>${list.rtaddress}</td>
+								
+								
+								
+            		  <jsp:useBean id="now" class="java.util.Date"/> 
+            		  <fmt:formatDate value="${now}" var="today" pattern="yyyy/MM/dd"/>
+            		  <fmt:formatDate value="${list.regdate}" var="regdate" pattern="yyyy/MM/dd" />
+            		  <c:if test="${today ne regdate}">
+            		  	<td><fmt:formatDate value="${list.regdate}" pattern="yyyy/MM/dd"/></td>
+            		  </c:if>
+            		  <c:if test="${today eq regdate}">
+            		  	<td><fmt:formatDate value="${list.regdate}" pattern="HH:mm"/></td>
+            		  </c:if>  
+            		  
+            		  <jsp:useBean id="unow" class="java.util.Date"/> 
+            		  <fmt:formatDate value="${now}" var="today" pattern="yyyy/MM/dd"/>
+            		  <fmt:formatDate value="${list.updatedate}" var="updatedate" pattern="yyyy/MM/dd" />
+            		  <c:if test="${today ne updatedate}">
+            		  	<td><fmt:formatDate value="${list.updatedate}" pattern="yyyy/MM/dd"/></td>
+            		  </c:if>
+            		  <c:if test="${today eq updatedate}">
+            		  	<td><fmt:formatDate value="${list.updatedate}" pattern="HH:mm"/></td>
+            		  </c:if>          		  
+            </tr>
+        </c:forEach>
+        
+        </tbody>
+        
+</table>
 				<div class = "text-center mt50">
 		<ul class="pagination pagination-lg clearfix">
 	        <c:if test="${pageMaker.prev}">
@@ -112,7 +156,7 @@
 	</select>
 	
 	<input type="text" name="keyword" id="keywordInput" value="${cri.keyword}">
-	<button type="button" id="searchBtn">Search</button>
+	<button type="button" id="searchBtn" class="btn btn-primary btn-xs">Search</button>
 	
 </div>
 </div>
