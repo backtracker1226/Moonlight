@@ -28,10 +28,10 @@
         <h2 class="lined-heading"><span>Profile Photo</span></h2>
         <div class="ProfilePhoto"></div>
                 
-        <div class="form-group">
+        <!-- <div class="form-group">
         	<label for="name">File DROP Here</label>
         	<div class="fileDrop" style="width:80%; height:100px; border:1px dotted gray; background-color:lightslategray; margin:auto;"></div>
-        </div>
+        </div> -->
         <input type="file" name="fullName" id="img" style="float:right;">
 
         </div>
@@ -39,10 +39,6 @@
         
       <div class="col-md-8">
         <h2 class="lined-heading"><span>Member Information</span></h2>
-        <p>Welcome to our Service, Please fill these forms.</p>
-        <div id="message"></div>
-        <!-- Error message display -->
-
           <div class="row">
           <!-- 세로 1째줄 -->
             <div class="col-md-6">
@@ -118,7 +114,7 @@
 
 <script id="templateAttach" type="text/x-handlebars-tamplate">
 
-<span class="mailbox-attachment-icon has-img"><img class="img-circle" src="{{imgsrc}}" alt="Attachment"  style="width:100%; max-height:200px;"></span>
+<span class="mailbox-attachment-icon has-img"><img class="img-circle" src="{{imgsrc}}" alt="Attachment"  style="width:100%; height:100%;"></span>
 	<div class="mailbox-attachment-info">
 	<a href="{{fullName}}" class="mailbox-attachment-name delbtn"></a>
 </div>
@@ -190,7 +186,7 @@ $(document).ready(function(e){
 	});
 	
 	
-	$(".fileDrop").on("dragenter dragover", function(e){
+	/* $(".fileDrop").on("dragenter dragover", function(e){
 		e.preventDefault();
 	});
 	
@@ -222,7 +218,7 @@ $(document).ready(function(e){
 
 			}
 		})
-	});
+	}); */
 	
 		$("#img").on("change", function(event){
 		

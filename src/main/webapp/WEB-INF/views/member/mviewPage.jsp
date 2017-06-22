@@ -6,7 +6,6 @@
 <html>
 <%@include file="../include/header.jsp"%>
 <%@include file="../include/banner.jsp"%>
-<body>
 
 <style type="text/css">
 
@@ -14,9 +13,10 @@
     width: 200px;
     height: 200px;
     margin:auto;
-
-
+    
 </style>
+
+<body>
 
 <!-- 사용자 회원 가입 양식 -->
 <div class="container">
@@ -25,20 +25,14 @@
     <section id="contact-form" class="mt50">
     <!-- 사용자 프로필 사진 등록 -->
         <div class="col-md-8">
-        <h2 class="lined-heading"><span>Profile Photo</span></h2>
-        
-        <div class="ProfilePhoto"></div>
-        
-        <button type="file" class="btn  btn-lg btn-primary" style="float:right; display:none;">File</button>
-        
-        </div>
-          </div>
+        	<h2 class="lined-heading"><span>Profile Photo</span></h2>
+        	<div class="ProfilePhoto">
+	        </div>
+			<button type="file" class="btn  btn-lg btn-primary" style="float:right; display:none;">File</button>
+		</div>
           
       <div class="col-md-8">
         <h2 class="lined-heading"><span>Member Information</span></h2>
-        <p>Welcome to our Service, Please fill these forms.</p>
-        <div id="message"></div>
-        <!-- Error message display -->
         <form class="clearfix mt50" role="form" method="" action="" name="contactform" id="mviewform">
           <div class="row">
           <!-- 세로 1째줄 -->
@@ -116,7 +110,7 @@
 
 <script id="templateAttach" type="text/x-handlebars-tamplate">
 
-<span class="mailbox-attachment-icon has-img"><img class="img-circle" src="{{imgsrc}}" alt="Attachment"  style="width:100%; max-height:200px;"></span>
+<span class="mailbox-attachment-icon has-img"><img class="img-circle" src="{{imgsrc}}" alt="Attachment"  style="width:100%; height:100%;"></span>
 	<div class="mailbox-attachment-info">
 	<a href="{{fullName}}" class="mailbox-attachment-name"></a>
 </div>

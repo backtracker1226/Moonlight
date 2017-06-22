@@ -80,7 +80,7 @@
 
 <body>
 <div id="sticky-sticky-wrapper" class="sticky-wrapper" style="height: auto;">
-<div class="navbar yamm navbar-default" id="sticky" style="background-color: #75c5cf;">
+<div class="navbar yamm navbar-default" id="sticky";">
 
     <div class="container">
     

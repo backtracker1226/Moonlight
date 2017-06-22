@@ -5,7 +5,6 @@
 	pageEncoding="UTF-8"%>
 <html>
 <%@include file="../include/header.jsp"%>
-<%@include file="../include/banner.jsp"%>
 <body>
 
 <style>
@@ -18,29 +17,27 @@
 
 <!-- 사용자 회원 가입 양식 -->
 <div class="container">
-  <div class="row"> 
+  <div class="row">
     <!-- Contact form -->
     <section id="contact-form" class="mt50">
     <!-- 사용자 프로필 사진 등록 -->
     <form class="clearfix mt50" role="form" method="post" id="profileform">
-        <div class="col-md-8">
+        <div class="col-md-12">
         <h2 class="lined-heading"><span>Profile Photo</span></h2>
         <div class="ProfilePhoto"></div>
-                
-        <div class="form-group">
-        	<label for="name">File DROP Here</label>
-        	<div class="fileDrop" style="width:80%; height:100px; border:1px dotted gray; background-color:lightslategray; margin:auto;"></div>
-        </div>
-        <input type="file" name="fullName" id="img" style="float:right;">
+        
+        <!-- <input type="file" name="fullName" id="img" style="float:right;"> -->
+        <div class="btn_box" style="float: right;">
+			<label class="btn  btn-lg btn-primary" for="img">
+				<div>ADD</div>
+				<input type="file" class="_fileRel" name="fullName" id="img" style="display:none;" accept="image/*">
+			</label>
+		</div>
 
         </div>
         
-      <div class="col-md-8">
+      <div class="col-md-12">
         <h2 class="lined-heading"><span>Member Information</span></h2>
-        <p>Welcome to our Service, Please fill these forms.</p>
-        <div id="message"></div>
-        <!-- Error message display -->
-        
           <div class="row">
           <!-- 세로 1째줄 -->
             <div class="col-md-6">
@@ -71,8 +68,9 @@
                 <label for="name"><span class="required">*</span> Phone Number</label>
                 <input name="mhp" type="text" id="mhp" class="form-control" value=""/>
               </div>
+              <button type="submit" id="mregisterBtn" class="btn  btn-lg btn-primary" style="float:right">Registraion</button>
             </div>
-          <button type="submit" id="mregisterBtn" class="btn  btn-lg btn-primary" style="float:right">Registraion</button>
+          
         </form>
       </div>
     </section>
@@ -106,7 +104,7 @@
 
 <script id="template" type="text/x-handlebars-template">
 
-	<span class="mailbox-attachment-icon has-img"><img class="img-circle" src="{{imgsrc}}" alt="Attachment"  style="width:100%; max-height:200px;"></span>
+	<span class="mailbox-attachment-icon has-img"><img class="img-circle" src="{{imgsrc}}" alt="Attachment"  style="width:100%; height:100%;"></span>
 	<div class="mailbox-attachment-info">
 	<a href="{{fullName}}" class="mailbox-attachment-name delbtn"></a>
 </div>
@@ -136,41 +134,7 @@ $(document).ready(function(e){
 		that.get(0).submit();
 	});
 	
-	var template = Handlebars.compile($("#template").html());
-	
-	$(".fileDrop").on("dragenter dragover", function(e){
-		e.preventDefault();
-	});
-	
-	$(".fileDrop").on("drop", function(e){
-		e.preventDefault();
-		
-		var files = e.originalEvent.dataTransfer.files;
-		
-		var file = files[0];
-		
-		var formData = new FormData();
-		
-		formData.append("file", file);
-		
-		$.ajax({
-			url: "/uploadAjax",
-			data: formData,
-			dataType: "text",
-			processData: false,
-			contentType: false,
-			type: "POST",
-			success: function(data){
-				
-				var fileInfo = getFileInfo(data);
-				
-				var html = template(fileInfo);
-
-				$(".ProfilePhoto").html(html);
-
-			}
-		})
-	});
+		var template = Handlebars.compile($("#template").html());
 	
 		$("#img").on("change", function(event){
 		
