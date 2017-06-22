@@ -6,7 +6,6 @@
 	pageEncoding="UTF-8"%>
 <html>
 <%@include file="../include/header.jsp"%>
-<%@include file="../include/banner.jsp"%>
 <body>
 
 <style>
