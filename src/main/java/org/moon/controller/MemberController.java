@@ -236,9 +236,4 @@ public class MemberController {
 	public void test(){
 		
 	}
-	
-	@GetMapping("/test2")
-	public void test2(){
-		
-	}
 }
