@@ -334,9 +334,9 @@
     		</div>
 			</div>
       </div>
-      <div class="modal-footer" style="text-align: center;">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" style="width: 85.64px;">닫기</button>
+      <div class="modal-footer" style="text-align: center;">        
         <button id="addAddressBtn" type="button" class="btn btn-primary">주소 등록</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" style="width: 85.64px;">닫기</button>
       </div>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" style="position: absolute; top: 23px; right: 15px;">X</span>
@@ -443,8 +443,6 @@ $(document).ready(function(){
 		var file = clicked.files[0];
 
 		var formData = new FormData();
-		
-		console.log(file.type);
 		
 		formData.append("file", file);
 		if(file != null){
