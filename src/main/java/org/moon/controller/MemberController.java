@@ -236,4 +236,8 @@ public class MemberController {
 	public void test(){
 		
 	}
+	@GetMapping("/tag")
+	public void tag(){
+		
+	}
 }
