@@ -160,7 +160,7 @@ $(document).ready(function(e){
 		that.append(str);
 		
 		formObj.attr("method", "post");
-		formObj.attr("action", "/member/mmodifyPage");
+		formObj.attr("action", "/member/mmodifyPage"); 
 		
 		that.get(0).submit();
 	});

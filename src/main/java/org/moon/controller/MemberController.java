@@ -232,12 +232,12 @@ public class MemberController {
 		return "member/logout";		
 	}
 	
-	@GetMapping("/test")
-	public void test(){
-		
-	}
 	@GetMapping("/tag")
 	public void tag(){
+		
+	}
+	@GetMapping("/tag2")
+	public void tag2(){
 		
 	}
 }
