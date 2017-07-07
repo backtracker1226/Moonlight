@@ -207,7 +207,7 @@
           <div class="form-group">
             <label><h3><span class="required">*</span>이미지</h3></label>		
             <label><span class="required">(최대 10장까지)</span></label>  
-            <div id="div1" class="form-control" style="display: block; height: 300px;">
+            <div id="div1" class="form-control" style="display:table;">
             <ul class="mailbox-attachments clearfix uploadedList">
             </ul>
             </div>
@@ -223,24 +223,23 @@
 		   </div>
           </div>  
           
-          		<div id="content">
+          <!-- Three.js 부분 -->
+		<div class="form-group">
+            <label><h3><span class="required">*</span>파노라마 이미지</h3></label>
+            <label><span class="required">(대표이미지 1장)</span></label>	          
+
+				<!-- id="go" 지우지마세요, 이벤트 엮여 있습니다. -->
+				<a href="#" id="go" style="display:none;"></a>
 			
-			<div id="threecontainer"></div>
+			<!-- id="your-pano"에 파노라마 이미지가 들어갑니다. // style="display:table;"로 윤곽을 잡습니다. (style="display: table-cell;"로 안을 채웁니다. ==> table-cell은 없어도 잘 보이네요.)-->
+			<div class="form-control" style="display:table;">
+			<div id="your-pano" ></div></div>
 
-
-				<a href="#" id="go">Load the predefined panorama</a>
-
-			<div id="your-pano"></div>
-
-			<form method="get" action="example1.html">
-				<p style="text-align: center;">
-					<input type="file" name="pano" id="pano" />
-				</p>
-			</form>
+			<label id="pano" class="btn btn-lg btn-primary" style="float: right;">
+			<div>파일첨부</div>
+			<input type="file" name="pano" id="panofile" class="btn_box" style="display:none;"/>
+			</label>
 		</div>
-          
-          
-
 		
 		<div class="form-group">
             <label><h3><span class="required">*</span>옥상 이용가격</h3></label>		  
@@ -948,7 +947,7 @@ function loadPredefinedPanorama(evt) {
 
 	var PSV = new PhotoSphereViewer({
 		// Path to the panorama
-		panorama: 'sun.jpg',
+		panorama: '',
 
 		// Container
 		container: div,
@@ -957,7 +956,7 @@ function loadPredefinedPanorama(evt) {
 		time_anim: false,
 
 		// Display the navigation bar
-		navbar: true,
+		navbar: false,
 
 		// Resize the panorama
 		size: {
@@ -985,7 +984,7 @@ function loadPredefinedPanorama(evt) {
 // Load a panorama stored on the user's computer
 function upload() {
 	// Retrieve the chosen file and create the FileReader object
-	var file = document.getElementById('pano').files[0];
+	var file = document.getElementById('panofile').files[0];
 	var reader = new FileReader();
 
 	reader.onload = function() {
@@ -1002,7 +1001,7 @@ function upload() {
 			time_anim: false,
 
 			// Display the navigation bar
-			navbar: true,
+			navbar: false,
 
 			// Resize the panorama
 			size: {
