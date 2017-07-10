@@ -52,10 +52,10 @@
 <select id="listPage" resultType="MemberVO">
 
 	<![CDATA[
-	select mno, mid, mname, mpw, mmail, mhp, mnick, mh, regdate 
+	select mno, mid, mname, mpw, mmail, mhp, mnick, regdate 
 	from 
 	  (
-	  select rownum rno, mno, mid, mname, mpw, mnick, mmail, mhp, mh, regdate 
+	  select rownum rno, mno, mid, mname, mpw, mnick, mmail, mhp, regdate 
 	  from tbl_member 
 	  where mno > 0 
 	  and rownum <= #{page} * 10 
@@ -69,10 +69,10 @@
 <select id="listCriteria" resultType="MemberVO">
 
 	<![CDATA[
-	select mno, mid, mname, mpw, mmail, mhp, mnick, mh, regdate 
+	select mno, mid, mname, mpw, mmail, mhp, mnick, regdate 
 	from 
 	  (
-	  select rownum rno, mno, mid, mname, mpw, mnick, mmail, mhp, mh, regdate 
+	  select rownum rno, mno, mid, mname, mpw, mnick, mmail, mhp, regdate 
 	  from tbl_member 
 	  where mno > 0 
 	  and rownum <= #{page} * #{perPageNum} 
@@ -94,11 +94,11 @@
 <select id="listSearch" resultType="MemberVO">
 
 	<![CDATA[ 
-    select X.rnum, X.mno, X.mid, X.mname, X.mpw, X.mnick, X.mmail, X.mhp, X.mh, X.regdate
+    select X.rnum, X.mno, X.mid, X.mname, X.mpw, X.mnick, X.mmail, X.mhp, X.regdate
 from ( 
-    select rownum as rnum, A.mno, A.mid, A.mname, A.mpw, A.mnick, A.mmail, A.mhp, A.mh, A.regdate
+    select rownum as rnum, A.mno, A.mid, A.mname, A.mpw, A.mnick, A.mmail, A.mhp, A.regdate
     from (
-        select mno, mid, mname, mpw, mnick, mmail, mhp, mh, regdate
+        select mno, mid, mname, mpw, mnick, mmail, mhp, regdate
         from tbl_member
 
         order by mno desc) A
