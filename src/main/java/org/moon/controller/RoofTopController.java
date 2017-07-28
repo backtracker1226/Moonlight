@@ -266,5 +266,9 @@ public class RoofTopController {
 		model.addAttribute("str", str);
 	}
 	
+	@GetMapping("/regist2")
+	public void regist2(RoofTopVO vo, Model model) throws Exception{
+		
+	}
 
 }
