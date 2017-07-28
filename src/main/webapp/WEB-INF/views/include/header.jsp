@@ -81,7 +81,7 @@
 </head>
 
 <body>
-<div id="sticky-sticky-wrapper" class="sticky-wrapper" style="height: auto;">
+<!-- <div id="sticky-sticky-wrapper" class="sticky-wrapper" style="height: auto;">
 <div class="navbar yamm navbar-default" id="sticky";">
 
     <div class="container">
@@ -93,7 +93,7 @@
         <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
       </div>
     </div>
-    <!-- 헤더 추가된 부분 -->
+    헤더 추가된 부분
     <a href="#" style="position: absolute; top: 0; left: 0;">
 	<span class="fa fa-arrow-left fa-3x" style="left: 28px; top: 48%; margin-top: 5px; margin-left: 32%;"></span>
 	</a>
@@ -101,9 +101,31 @@
     <a href="#" style="position: absolute; top: 0; right: 0;">
 	<span class="fa fa-bars fa-3x" style="right: 25px; top: 50%; margin-top: 5px; margin-left: -32%;"></span>
 	</a>
-	<!-- 추가부분 여기까지 -->
+	추가부분 여기까지
   </div>
-  </div>
+  </div> -->
+ <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!-- <a class="navbar-brand" href="#">옥상달빛</a> -->
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/rooftop/list">옥상목록</a></li>
+            <li><a href="/member/mlistPage">회원등록</a></li>
+            <li><a href="/board">후기목록</a></li>
+            
+          </ul>
+          
+        </div>
+      </div>
+    </nav>
   
   
 

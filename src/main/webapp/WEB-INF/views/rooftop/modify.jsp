@@ -873,7 +873,7 @@ $(document).ready(function(){
 	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = {
-	        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        center: new daum.maps.LatLng(37.494609, 127.027988), // 지도의 중심좌표
 	        level: 1 // 지도의 확대 레벨
 	    };  
 	

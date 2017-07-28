@@ -108,7 +108,7 @@
 </div>
 
 <!-- 검색창 -->
-<button type="submit" id="newBtn" class="btn btn-lg btn-primary" style="float:right;">새글쓰기</button>	
+<button type="submit" id="newBtn" class="btn btn-lg btn-primary" style="float:right;">회원등록</button>	
 <div class="box-body" style="text-align: center;">
       
 	<select name="searchType">

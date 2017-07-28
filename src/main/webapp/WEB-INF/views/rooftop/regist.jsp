@@ -138,20 +138,20 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="rtname" accesskey="U"><h3><span class="required">*</span>옥상명</h3></label>
-                <input name="rtname" type="text" id="rtname" class="form-control" value=""/>                
+                <input name="rtname" type="text" id="rtname" class="form-control" value="" style="color: black;"/>                
               </div>
             </div>
             
             <div class="col-md-6">
               <div class="form-group">
                 <label for="rtemail" accesskey="E"><h3><span class="required">*</span>E-mail</h3></label>
-                <input name="rtemail" type="text" id="rtemail" value="" class="form-control" placeholder="@를 붙여서 입력해 주세요."/>
+                <input name="rtemail" type="text" id="rtemail" value="" class="form-control" placeholder="@를 붙여서 입력해 주세요." style="color: black;"/>
               </div>
             </div>
           </div>
           <div class="form-group">
             <label for="rtintroduction" accesskey="C"><h3><span class="required">*</span> 옥상 소개 </h3></label>
-            <textarea name="rtintroduction" rows="10" id="rtintroduction" class="form-control"></textarea>
+            <textarea name="rtintroduction" rows="10" id="rtintroduction" class="form-control" style="color: black;"></textarea>
           </div>
           
           <div class="form-group" >
@@ -159,7 +159,7 @@
             <label for="rthashtag" ><h3><span class="required">*</span> 옥상 태그 </h3></label>
             <!-- <label><span class="required">(최대 5개까지 입력가능)</span></label> -->
             <input name="rthashtag" type="text" maxlength="10" id="rthashtag" value="" 
-            class="form-control"/>
+            class="form-control" style="color: black;"/>
             <div style="float: right;">
             	<button id="tagBtn" class="btn  btn-lg btn-primary">추가</button>
             </div>
@@ -171,14 +171,14 @@
           </div>
           <div class="form-group">
             <label><h3><span class="required">*</span>휴대폰 번호</h3></label>		  
-            <input name="rtphonenumber" type="text" id="rtphonenumber" value="" class="form-control" placeholder="-을 붙여서 전화번호를 입력해 주세요."/>
+            <input name="rtphonenumber" type="text" id="rtphonenumber" value="" class="form-control" placeholder="-을 붙여서 전화번호를 입력해 주세요." style="color: black;"/>
           </div>
           <div class="form-group">
             <label><h3><span class="required">*</span>주소(위치)</h3></label>
             
             <div>		  
             	<input name="rtaddress" type="text" id="rtaddress" value="" class="form-control" 
-            	style="display:block; height: 46px; background-color: white;" readonly="readonly" placeholder="검색 버튼을 눌러주세요."/>
+            	style="display:block; height: 46px; background-color: white; color: black;" readonly="readonly" placeholder="검색 버튼을 눌러주세요."/>
             	<input type="hidden" name="rtlat" id="lat" value="">
             	<input type="hidden" name="rtlng" id="lng" value="">
             	            	
@@ -201,7 +201,7 @@
            <div class="btn_box" style="float: right;">
 			<label class="btn  btn-lg btn-primary" for="img">
 			<div>파일첨부</div>
-			<input multiple="multiple" type="file" class="_fileRel" name="files" id="img" style="display:none;"
+			<input multiple="multiple" type="file" class="_fileRel" name="files" id="img" style="display:none; color: black;"
 			 _single="true" accept="image/*">
 			</label>
 		
@@ -210,14 +210,14 @@
                  
           <div class="form-group">
             <label><h3><span class="required">*</span>옥상 이용가격</h3></label>		  
-            <input name="price" type="text" id="price" value="" class="form-control" placeholder="숫자만 입력해 주세요."/>
+            <input name="price" type="text" id="price" value="" class="form-control" placeholder="숫자만 입력해 주세요." style="color: black;"/>
           </div>
           
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="minpeople" ><h3><span class="required">*</span>최소 이용 인원</h3></label>
-                <input name="minpeople" type="text" id="minpeople" class="form-control" value="" placeholder="숫자만 입력해 주세요."/>
+                <input name="minpeople" type="text" id="minpeople" class="form-control" value="" placeholder="숫자만 입력해 주세요." style="color: black;"/>
                 
               </div>
             </div>
@@ -225,19 +225,19 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="maxpeople"><h3><span class="required">*</span>최대 이용 인원</h3></label>
-                <input name="maxpeople" type="text" id="maxpeople" value="" class="form-control" placeholder="숫자만 입력해 주세요."/>
+                <input name="maxpeople" type="text" id="maxpeople" value="" class="form-control" placeholder="숫자만 입력해 주세요." style="color: black;"/>
               
               </div>
             </div>
           </div>
           <div class="form-group">
                 <label for="rtnotes" accesskey="U"><h3><span class="required">*</span>옥상 이용시 주의사항</h3></label>
-                <textarea name="rtnotes" rows="10" id="rtnotes" class="form-control"></textarea>               
+                <textarea name="rtnotes" rows="10" id="rtnotes" class="form-control" style="color: black;"></textarea>               
               </div>
             
           <div class="form-group">
             <label for="rtpurpose" accesskey="S"><h3><span class="required">*</span>옥상 용도 설정</h3></label>
-            <select name="rtpurpose" id="rtpurpose" class="form-control">
+            <select name="rtpurpose" id="rtpurpose" class="form-control" style="color: black;">
               <option value="partyroom">파티룸</option>
               <option value="barbecu">바베큐파티</option>
               <option value="culture">문화공간</option>
@@ -321,7 +321,7 @@
       </div>
       <div class = "modal-header2">
       <input name="rtaddress" type="text" id="rtaddress2" value="" class="form-control" 
-      style="display: inline-block; height: 46px; background-color: white;" readonly="readonly" placeholder="지도를 클릭하면 주소가 들어갑니다."/>
+      style="display: inline-block; height: 46px; background-color: white; color: black;" readonly="readonly" placeholder="지도를 클릭하면 주소가 들어갑니다."/>
       <!-- <button id="addrSearchBtn" type="button" class="btn btn-primary" style="height: 46px;">주소 검색</button> -->
       </div>
       <div class="modal-body">
@@ -665,13 +665,14 @@ $(document).ready(function(){
 </script>
 
 <script>
+
 	
 	var rtaddress = $("#rtaddress");
 	var rtaddress2 = $("#rtaddress2");
 	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = {
-	        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        center: new daum.maps.LatLng(37.494609, 127.027988), // 지도의 중심좌표
 	        level: 1 // 지도의 확대 레벨
 	    };  
 	
@@ -766,7 +767,6 @@ $(document).ready(function(){
 	}); */
 
 	$('#myModal').on('shown.bs.modal', function () {
-
 	   
 		    map.relayout();
 		    setMapCenter();

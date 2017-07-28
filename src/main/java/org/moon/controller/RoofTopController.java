@@ -1,5 +1,7 @@
 package org.moon.controller;
 
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -192,6 +194,69 @@ public class RoofTopController {
 	
 	@GetMapping("/regist2")
 	public void regist2(RoofTopVO vo, Model model) throws Exception{
+		
+	}
+	
+	@GetMapping("/tagtest")
+	public void readRooftop3()throws Exception{
+		
+		/*logger.info(service.readRooftop(rtid));
+		model.addAttribute("rtvo", service.readRooftop(rtid));*/
+		
+	}
+	
+	@GetMapping("/tagtest2")
+	public void readRooftop2(@ModelAttribute("cri")RoofTopSearchCriteria cri, Model model)throws Exception{
+		
+		/*logger.info(service.readRooftop(rtid));
+		model.addAttribute("rtvo", service.readRooftop(rtid));*/
+		model.addAttribute("list", service.searchList(cri));
+		
+		RoofTopPageMaker pageMaker = new RoofTopPageMaker();
+		pageMaker.setCri(cri);
+				
+		pageMaker.setTotalCount(service.searchCount(cri));
+				
+		model.addAttribute("pageMaker", pageMaker);
+		
+	}
+	@GetMapping("/tagtest3")
+	public void readRooftop4(@ModelAttribute("cri")RoofTopSearchCriteria cri, Model model)throws Exception{
+		
+		/*logger.info(service.readRooftop(rtid));
+		model.addAttribute("rtvo", service.readRooftop(rtid));*/
+		model.addAttribute("list", service.searchList(cri));
+		
+		RoofTopPageMaker pageMaker = new RoofTopPageMaker();
+		pageMaker.setCri(cri);
+				
+		pageMaker.setTotalCount(service.searchCount(cri));
+				
+		model.addAttribute("pageMaker", pageMaker);
+		
+	}
+	
+	@GetMapping("/tagtest4")
+	public void readRooftop5(@ModelAttribute("cri")RoofTopSearchCriteria cri, Model model)throws Exception{
+		
+		/*logger.info(service.readRooftop(rtid));
+		model.addAttribute("rtvo", service.readRooftop(rtid));*/
+		model.addAttribute("list", service.searchList(cri));
+		
+		RoofTopPageMaker pageMaker = new RoofTopPageMaker();
+		pageMaker.setCri(cri);
+				
+		pageMaker.setTotalCount(service.searchCount(cri));
+				
+		model.addAttribute("pageMaker", pageMaker);
+		
+	}
+	
+	@RequestMapping("/tagcount")
+	@ResponseBody
+	public List<HashMap<String, BigInteger>> tagcount()throws Exception{
+		
+		return service.tagcount();
 		
 	}
 	
