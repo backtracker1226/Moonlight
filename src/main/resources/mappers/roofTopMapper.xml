@@ -198,7 +198,7 @@
 		select hashtagname "text", count(*) "size" from TBL_ROOFTOP_HASHTAG group by hashtagname order by count(*) desc
 	</select>
 	
-	<select id="readUser" resultType="UserVO">
+	<!-- <select id="readUser" resultType="UserVO">
 		select * from tbl_user where userid = #{userid}
 	</select>
 	
@@ -213,7 +213,7 @@
 	
 	<delete id="deleteUser">
 		delete from tbl_user where userid = #{userid}
-	</delete>
+	</delete> -->
 	
 	
 
