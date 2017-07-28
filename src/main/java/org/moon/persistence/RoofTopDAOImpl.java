@@ -1,5 +1,6 @@
 package org.moon.persistence;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -162,6 +163,37 @@ public class RoofTopDAOImpl implements RoofTopDAO {
 	@Override
 	public void delete(Integer rtid) throws Exception {
 		sess.delete(namespace+".delete", rtid);
+		
+	}
+
+	@Override
+	public List<HashMap<String, BigInteger>> tagcount() throws Exception {
+		
+		return sess.selectList(namespace+".tagcount");
+	}
+
+	@Override
+	public void addRimg(String rfname) throws Exception {
+		
+		sess.insert(namespace+".addRimg", rfname);
+	}
+
+	@Override
+	public void replaceRImg(String rfname, Integer rtid) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("rtid", rtid);
+		paramMap.put("rfname", rfname);
+		
+		sess.insert(namespace+".replaceRImg", paramMap);
+		
+	}
+
+	@Override
+	public void deleteRImg(Integer rtid) throws Exception {
+		
+		sess.delete(namespace+".deleteRImg", rtid);
 		
 	}
 

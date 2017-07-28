@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
+@CrossOrigin(origins = "http://localhost:4200")
 public class RoofTopUploadController {
 
 	private static final Logger logger = Logger.getLogger(RoofTopUploadController.class);
@@ -54,12 +56,13 @@ public class RoofTopUploadController {
 
 	@ResponseBody
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
+	public ResponseEntity<String> uploadAjax(MultipartFile image) throws Exception {
 
-		logger.info("originalName: " + file.getOriginalFilename());
+		logger.info("originalName: " + image.getOriginalFilename());
+		logger.info(image);
 		logger.info("uploadAjax start!");
 
-		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
+		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, image.getOriginalFilename(), image.getBytes()),
 				HttpStatus.CREATED);
 
 	}

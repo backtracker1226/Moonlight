@@ -1,5 +1,7 @@
 package org.moon.service;
 
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,6 +27,7 @@ public class RoofTopServiceImpl implements RoofTopService {
 		String[] files = vo.getFiles();
 		String[] hashtags = vo.getHashtags();
 		String[] options = vo.getOptions();
+		//String rfname = files[0];
 		
 		if(files==null){ 
 			
@@ -57,7 +60,10 @@ public class RoofTopServiceImpl implements RoofTopService {
 			for (String hashtagname : hashtags) {
 				dao.addHashtag(hashtagname);
 			}
-		}	
+		}
+		String rfname = files[0];
+		dao.addRimg(rfname);
+		
 
 	}
 
@@ -96,6 +102,7 @@ public class RoofTopServiceImpl implements RoofTopService {
 		dao.deleteImg(rtid);
 		dao.deleteHashtag(rtid);
 		dao.deleteOption(rtid);
+		dao.deleteRImg(rtid);
 		
 		String[] files = rtvo.getFiles();
 		String[] hashtags = rtvo.getHashtags();
@@ -133,6 +140,8 @@ public class RoofTopServiceImpl implements RoofTopService {
 				dao.replaceHashtag(hashtagname, rtid);
 			}
 		}
+//		String rfname = files[0];
+//		dao.replaceRImg(rfname, rtid);
 		
 		
 	}
@@ -167,8 +176,15 @@ public class RoofTopServiceImpl implements RoofTopService {
 		dao.deleteImg(rtid);
 		dao.deleteHashtag(rtid);
 		dao.deleteOption(rtid);
+		dao.deleteRImg(rtid);
 		dao.delete(rtid);
 		
+	}
+
+	@Override
+	public List<HashMap<String, BigInteger>> tagcount() throws Exception {
+		
+		return dao.tagcount();
 	}
 	
 //	@Override

@@ -1,5 +1,7 @@
 package org.moon.persistence;
 
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 
 import org.moon.domain.RoofTopSearchCriteria;
@@ -10,6 +12,8 @@ public interface RoofTopDAO {
 	public void create(RoofTopVO vo)throws Exception;
 	
 	public void addImg(String fullName)throws Exception;
+	
+	public void addRimg(String rfname)throws Exception;
 	
 	public void addHashtag(String hashtagname)throws Exception;
 	
@@ -24,6 +28,10 @@ public interface RoofTopDAO {
 	public void deleteImg(Integer rtid)throws Exception;
 	
 	public void replaceImg(String fullName, Integer rtid)throws Exception;
+	
+	public void deleteRImg(Integer rtid)throws Exception;
+	
+	public void replaceRImg(String rfname, Integer rtid)throws Exception;
 	
 	public void deleteHashtag(Integer rtid)throws Exception;
 	
@@ -46,6 +54,9 @@ public interface RoofTopDAO {
 	public List<RoofTopVO> searchList(RoofTopSearchCriteria cri)throws Exception;
 	
 	public int searchListCount(RoofTopSearchCriteria cri)throws Exception;
+	
+	
+	public List<HashMap<String, BigInteger>> tagcount()throws Exception;
 	
 	
 

@@ -1,5 +1,7 @@
 package org.moon.service;
 
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 
 import org.moon.domain.RoofTopSearchCriteria;
@@ -28,4 +30,7 @@ public interface RoofTopService {
 	public List<RoofTopVO> searchList(RoofTopSearchCriteria cri)throws Exception;
 	
 	public int searchCount(RoofTopSearchCriteria cri)throws Exception;
+	
+	
+	public List<HashMap<String, BigInteger>> tagcount()throws Exception;
 }

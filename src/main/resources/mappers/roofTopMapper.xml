@@ -39,6 +39,11 @@
 		values
 		(#{fname}, seq_tbl_rooftop.currval)
 	</insert>
+	
+	<insert id="addRimg">
+		insert into tbl_rooftop_rimg (rfname, rtid)
+		values (#{rfname}, seq_tbl_rooftop.currval)
+	</insert>
 
 	<insert id="addHashtag">
 		insert into tbl_rooftop_hashtag (htid, hashtagname,
@@ -80,6 +85,10 @@
 	<delete id="deleteOption">
 		delete from tbl_rooftop_options where rtid = #{rtid}
 	</delete>
+	
+	<delete id="deleteRImg">
+		delete from tbl_rooftop_rimg where rtid = #{rtid}
+	</delete>
 
 	<insert id="replaceImg">
 		insert into TBL_ROOFTOP_IMG (fname, rtid)
@@ -97,6 +106,11 @@
 		insert into tbl_rooftop_options (opid, optionname,
 		rtid)
 		values (seq_tbl_rooftop_options.nextval, #{optionname}, #{rtid})
+	</insert>
+	
+	<insert id="replaceRimg">
+		insert into tbl_rooftop_rimg (rfname, rtid)
+		values (#{rfname}, #{rtid})
 	</insert>
 
 	<select id="read" resultType="RoofTopVO">
@@ -149,7 +163,7 @@
 
 	<select id="searchList" resultType="RoofTopVO">
 
-	<!-- <![CDATA[
+	<![CDATA[
 	select rtid, rtname, rtaddress, regdate, updatedate 
 	from 
 	  (
@@ -165,23 +179,7 @@
 	  order by rtid desc
 	  ) 
 	where rno > (#{page} - 1) * #{perPageNum}
-	  ]]> -->
-	   <![CDATA[ 
-    select X.rnum, X.rtid, X.rtname, X.rtaddress, X.regdate, X.updatedate
-from ( 
-    select rownum as rnum, A.rtid, A.rtname, A.rtaddress, A.regdate, A.updatedate
-    from (
-        select rtid, rtname, rtaddress, regdate, updatedate
-        from tbl_rooftop 
-		where rtid > 0
-        order by rtid desc) A
-
-    where rownum <= #{page} * #{perPageNum}                   
-    ]]>
-            <include refid="search"></include>
-             <![CDATA[ ) X
-where X.rnum > (#{page} - 1) * #{perPageNum}
-  ]]>
+	  ]]>
 
 
 	</select>
@@ -195,5 +193,28 @@ where X.rnum > (#{page} - 1) * #{perPageNum}
 		<include refid="search"></include>
 
 	</select>
+		
+	<select id="tagcount" resultType="hashmap">
+		select hashtagname "text", count(*) "size" from TBL_ROOFTOP_HASHTAG group by hashtagname order by count(*) desc
+	</select>
+	
+	<select id="readUser" resultType="UserVO">
+		select * from tbl_user where userid = #{userid}
+	</select>
+	
+	<insert id="createUser">
+		insert into tbl_user(userid, username, userage)
+		values(#{userid}, #{username}, #{userage})
+	</insert>
+	
+	<update id="updateUser">
+		update tbl_user set userid = #{userid}, username = #{username}, userage = #{userage} where userid = #{userid}
+	</update>
+	
+	<delete id="deleteUser">
+		delete from tbl_user where userid = #{userid}
+	</delete>
+	
+	
 
 </mapper>

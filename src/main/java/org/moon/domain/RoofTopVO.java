@@ -26,6 +26,14 @@ public class RoofTopVO {
 	private String[] hashtags;
 	private String[] options;
 	
+	private String rfname;
+	
+	public String getRfname() {
+		return rfname;
+	}
+	public void setRfname(String rfname) {
+		this.rfname = rfname;
+	}
 	public double getRtlat() {
 		return rtlat;
 	}
@@ -142,8 +150,9 @@ public class RoofTopVO {
 				+ ", rtpurpose=" + rtpurpose + ", rtlat=" + rtlat + ", rtlng=" + rtlng + ", price=" + price
 				+ ", minpeople=" + minpeople + ", maxpeople=" + maxpeople + ", regdate=" + regdate + ", updatedate="
 				+ updatedate + ", files=" + Arrays.toString(files) + ", hashtags=" + Arrays.toString(hashtags)
-				+ ", options=" + Arrays.toString(options) + "]";
+				+ ", options=" + Arrays.toString(options) + ", rfname=" + rfname + "]";
 	}
+	
 	
 	
 

@@ -157,7 +157,7 @@
           <div class="form-group" >
           
             <label for="rthashtag" ><h3><span class="required">*</span> 옥상 태그 </h3></label>
-            <!-- <label><span class="required">(최대 5개까지 입력가능)</span></label> -->
+            <label><span class="required">(최대 5개까지 입력가능)</span></label>
             <input name="rthashtag" type="text" maxlength="10" id="rthashtag" value="" 
             class="form-control"/>
             <div style="float: right;">
@@ -243,7 +243,7 @@
             <label for="rtpurpose" accesskey="S"><h3><span class="required">*</span>옥상 용도 설정</h3></label>
             <select name="rtpurpose" id="rtpurpose" class="form-control">${rtvo.rtpurpose}
               <option value="partyroom" <c:out value="${rtvo.rtpurpose=='partyroom'?'selected':'' }"/>>파티룸</option>
-              <option value="barbecu" <c:out value="${rtvo.rtpurpose=='barbecu'?'selected':'' }"/>>바베큐파티</option>
+              <option value="meeting" <c:out value="${rtvo.rtpurpose=='meeting'?'selected':'' }"/>>미팅공간</option>
               <option value="culture" <c:out value="${rtvo.rtpurpose=='culture'?'selected':'' }"/>>문화공간</option>
             </select>
           </div>
@@ -312,7 +312,7 @@
 			<input type="hidden" name="keyword" value="${cri.keyword}">
          
           <button id="updateBtn" type="submit" class="btn  btn-lg btn-primary" style="float: right; ">수정하기</button>
-          <button type="submit" id="cancleBtn" class="btn  btn-lg btn-danger" style="float:left">취소</button>
+          <button type="submit" id="cancleBtn" class="btn  btn-lg btn-primary" style="float:left">취소</button>
          
         </form>
       </div>
@@ -408,7 +408,7 @@ $(document).ready(function(){
 
 		var formData = new FormData();
 		
-		formData.append("file", file);	
+		formData.append("image", file);	
 		//console.log(file.type);
 		
 		//파일이 있는지 없는지 검사
@@ -466,7 +466,7 @@ $(document).ready(function(){
 		
 		console.log(file.type);
 		
-		formData.append("file", file);
+		formData.append("image", file);
 		if(file != null){//파일이 있는지 확인
 			if(file.type=='image/jpeg'||file.type=='image/png'||file.type=='image/gif'||file.type=='image/jpg'){//파일 타입 확인
 				if($("img[name='rtimg']").length < 10){		

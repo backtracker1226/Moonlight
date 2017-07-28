@@ -83,11 +83,33 @@ public class UploadFileUtils {
 		
 	}
 	
-	private static String makeThumbnail(String uploadPath, String path, String fileName)throws Exception{
+//	private static String makeThumbnail(String uploadPath, String path, String fileName)throws Exception{
+//		
+//		BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
+//		
+//		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
+//		
+//		String thumbnailName = uploadPath + path + File.separator + "s_" + fileName;
+//		
+//		File newfile = new File(thumbnailName);
+//		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+//		
+//		ImageIO.write(destImg, formatName.toUpperCase(), newfile);
+//		
+//		return thumbnailName.substring(uploadPath.length()).replace(File.separatorChar, '/');
+//		
+//	}
+	
+private static String makeThumbnail(String uploadPath, String path, String fileName)throws Exception{
 		
 		BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
 		
-		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
+		int imgwidth = Math.min(sourceImg.getHeight(),  sourceImg.getWidth());
+		int imgheight = imgwidth;
+		
+		BufferedImage scaledImage = Scalr.crop(sourceImg, (sourceImg.getWidth() - imgwidth)/2, (sourceImg.getHeight() - imgheight)/2, imgwidth, imgheight, null);
+		
+		BufferedImage destImg = Scalr.resize(scaledImage, 500, 500, null);
 		
 		String thumbnailName = uploadPath + path + File.separator + "s_" + fileName;
 		
