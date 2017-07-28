@@ -67,7 +67,6 @@
 <script type="text/javascript" src="/resources/rs-plugin/js/jquery.themepunch.revolution.min.js"></script> 
 <script type="text/javascript" src="/resources/js/custom.js"></script>
 
-<script type="text/javascript" src="/resources/js/jquery.awesomeCloud-0.2.js"></script>
 <script type="text/javascript" src="/resources/js/wordcloud2.js"></script>
 
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=e4feaf9106447f2ab9b08cc377b982f5&libraries=services"></script>
