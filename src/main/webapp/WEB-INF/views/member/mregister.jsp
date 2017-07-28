@@ -153,7 +153,7 @@ $(document).ready(function(e){
 		
 		
 		$.ajax({
-			  url: '/imgUploadAjax',
+			  url: '/uploadAjax',
 			  data: formData,
 			  dataType:'text',
 			  processData: false,
